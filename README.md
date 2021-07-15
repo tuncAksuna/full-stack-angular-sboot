@@ -1,6 +1,27 @@
 # FullstackappFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.5. and Spring Boot 5 
+
+# App overview
+
+![Genel görüntü](https://user-images.githubusercontent.com/65118839/125841935-8609ad0b-959b-4ed3-8a9f-ab8dc88a140d.PNG)
+
+## Filtering
+
+![Filtering](https://user-images.githubusercontent.com/65118839/125841928-055b6aed-1946-4c8d-9f65-e04626f3c082.PNG)
+
+## Employee Details Page
+
+![details](https://user-images.githubusercontent.com/65118839/125841931-644883c4-6126-4bb8-ad83-eb8f0214371f.PNG)
+
+## Create New Employee 
+
+![add employee with form validation](https://user-images.githubusercontent.com/65118839/125841933-3bb015bb-9fcc-431e-b47e-602764e43abf.PNG)
+
+## Update Existing Employee 
+
+![updating](https://user-images.githubusercontent.com/65118839/125841934-a0209a94-4102-4e62-87bd-31cc8ae54533.PNG)
+
 
 ## Development server
 
