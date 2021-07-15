@@ -1,0 +1,39 @@
+<div class="col-md-6 offset-md-3">
+    <h3>Create new Employee </h3>
+    <hr>
+    <form (ngSubmit)="onSubmit()" [formGroup]="createUserInfos" #inputVal>
+        <div class="form-group">
+            <label for="firstName"><i>First Name</i> </label>
+            <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="employee.firstName" required formControlName="firstName">
+            <div class="alert alert-danger" *ngIf="firstName.touched && firstName.errors?.required">First name is required</div>
+            <div class="alert alert-danger" *ngIf="firstName.touched && firstName.errors?.maxlength">The first name should be <i>' {{ firstName.errors.maxlength.requiredLength }} ' characters</i> </div>
+        </div>
+
+        <div class="form-group">
+            <label for="lastName"><i>Last Name</i> </label>
+            <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="employee.lastName" required formControlName="lastName">
+            <!-- <div class="alert alert-danger" *ngIf="lastName.touched && lastName.invalid">
+                <span *ngIf="lastName.error.required">Last name is required</span>
+            </div> -->
+            <div class="alert alert-danger" *ngIf="lastName.touched && lastName.errors?.required">Last name is required</div>
+            <div class="alert alert-danger" *ngIf="lastName.touched && lastName.errors?.maxlength">The last name should be <i>' {{ lastName.errors.maxlength.requiredLength }} '</i> characters</div>
+        </div>
+
+        <div class="form-group">
+            <label for="emailID"><i>E-mail Address</i></label>
+            <div id="emailIcon">
+                <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" class="ml-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open-fill" viewBox="0 0 16 16">
+                            <path d="M8.941.435a2 2 0 0 0-1.882 0l-6 3.2A2 2 0 0 0 0 5.4v.313l6.709 3.933L8 8.928l1.291.717L16 5.715V5.4a2 2 0 0 0-1.059-1.765l-6-3.2zM16 6.873l-5.693 3.337L16 13.372v-6.5zm-.059 7.611L8 10.072.059 14.484A2 2 0 0 0 2 16h12a2 2 0 0 0 1.941-1.516zM0 13.373l5.693-3.163L0 6.873v6.5z"/>
+                          </svg>
+                </a>
+            </div>
+            <input type="text" class="form-control" id="emailID" name="emailID" [(ngModel)]="employee.emailID" required formControlName="emailID">
+            <div class="alert alert-danger" *ngIf="emailID.touched && emailID.errors?.required">E - mail required</div>
+            <div class="alert alert-danger" *ngIf="emailID.touched && emailID.errors?.email"> Please , Write in e-mail format (example : tuncAksuna@..com)
+            </div>
+        </div>
+
+        <button [disabled]="createUserInfos.invalid" (click)="goToEmployeeList()" class="btn btn-primary btn-sm" type="submit">Add new employee</button>
+    </form>
+</div>

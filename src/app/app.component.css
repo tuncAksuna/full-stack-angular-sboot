@@ -1,0 +1,12 @@
+#icons {
+    font-size: 30px;
+    transition: font-size 250ms;
+}
+
+#icons:hover {
+    font-size: 20px;
+}
+
+#icons a {
+    color: whitesmoke;
+}

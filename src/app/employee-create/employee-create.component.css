@@ -1,0 +1,30 @@
+.form-control.ng-pristine.ng-invalid.ng-touched {
+    border-left: 4px solid #a94442;
+}
+
+.form-control.ng-dirty.ng-valid {
+    border-left: 4px solid #42A948
+}
+
+#emailIcon {
+    display: inline-block;
+    opacity: 0.8;
+    padding: 1px;
+    transition: opacity 200ms, padding 300ms;
+}
+
+#emailIcon:hover {
+    opacity: 1;
+    padding: 4px;
+}
+
+button {
+    padding: 4px;
+    border-radius: 0.2rem;
+    transition: padding 250ms, border-radius 200ms;
+}
+
+button:hover {
+    border-radius: 0.5rem;
+    padding: 8px;
+}
