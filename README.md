@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ![Genel görüntü](https://user-images.githubusercontent.com/65118839/125841935-8609ad0b-959b-4ed3-8a9f-ab8dc88a140d.PNG)
 
-## Filtering
+## Searching feature
 
 ![Filtering](https://user-images.githubusercontent.com/65118839/125841928-055b6aed-1946-4c8d-9f65-e04626f3c082.PNG)
 
