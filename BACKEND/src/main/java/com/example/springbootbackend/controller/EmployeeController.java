@@ -17,59 +17,58 @@ import java.util.Map;
 @CrossOrigin
 public class EmployeeController {
 
-    private final EmployeeServiceImpl employeeService;
+  @Autowired
+  private final EmployeeServiceImpl employeeServiceImpl;
 
-    @Autowired
-    public EmployeeController(EmployeeServiceImpl employeeService) {
-        this.employeeService = employeeService;
-    }
+  @Autowired
+  public EmployeeController(EmployeeServiceImpl employeeServiceImpl) {
+    this.employeeServiceImpl = employeeServiceImpl;
+  }
 
-    @GetMapping("/employees/search/{firstName}")
-    public ResponseEntity<Employee> firstNameSearching(@PathVariable("firstName") String firstName) {
-        return employeeService.firstNameSearching(firstName);
-    }
+  @GetMapping("/employees/search/{firstName}")
+  public ResponseEntity<Employee> firstNameSearching(@PathVariable("firstName") String firstName) {
+    return employeeServiceImpl.firstNameSearching(firstName);
+  }
 
-    @GetMapping("/employees")
-    public List<Employee> getAllEmployees() {
+  @GetMapping("/employees/pagination")
+  public Page<Employee> getAllEmployeesPaginate(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                @RequestParam(name = "size", defaultValue = "10") int size) {
 
-        return employeeService.getAllEmployees();
+    return employeeServiceImpl.getAllEmployeesPaginate(page, size);
+    // TODO : BU METOD DAHA SONRA YAPILACAKTIR PAGINATION İÇİN
+  }
 
-    }
+  @GetMapping("/employees/{page}/{size}")
+  public List<Employee> getAllEmployees(@PathVariable int page,
+                                        @PathVariable int size) {
 
-    @GetMapping(" LATER ")
-    public Page<Employee> getAllEmployeesPaginate(@RequestParam(name = "page", defaultValue = "0") int page,
-                                                  @RequestParam(name = "size", defaultValue = "10") int size) {
+    return employeeServiceImpl.getAllEmployees(page, size);
+  }
 
-        return employeeService.getAllEmployeesPaginate(page, size);
-        // TODO : BU METOD DAHA SONRA YAPILACAKTIR PAGINATION İÇİN
+  @GetMapping("/employees/firstName/{firstName}")
+  public ResponseEntity<Employee> getEmployeeByFirstName(@PathVariable("firstName") String firstName) {
+    return employeeServiceImpl.getEmployeeByFirstName(firstName);
+  }
 
+  @GetMapping("/employees/{id}")
+  public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id) {
 
-    }
+    return employeeServiceImpl.getEmployeeById(id);
+  }
 
-    @GetMapping("/employees/firstName/{firstName}")
-    public ResponseEntity<Employee> getEmployeeByFirstName(@PathVariable("firstName") String firstName) {
-        return employeeService.getEmployeeByFirstName(firstName);
-    }
+  @PostMapping("/employees")
+  public Employee createEmployee(@Valid @RequestBody Employee employee) {
 
-    @GetMapping("/employees/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id) {
+    return employeeServiceImpl.createEmployee(employee);
+  }
 
-        return employeeService.getEmployeeById(id);
-    }
+  @PutMapping("/employees/{id}")
+  public ResponseEntity<Employee> updateEmployee(@PathVariable @Max(2) Long id, @RequestBody Employee employee) {
+    return employeeServiceImpl.updateEmployee(id, employee);
+  }
 
-    @PostMapping("/employees")
-    public Employee createEmployee(@Valid @RequestBody Employee employee) {
-
-        return employeeService.createEmployee(employee);
-    }
-
-    @PutMapping("/employees/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable @Max(2) Long id, @RequestBody Employee employee) {
-        return employeeService.updateEmployee(id, employee);
-    }
-
-    @DeleteMapping("/employees/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id) {
-        return employeeService.deleteEmployee(id);
-    }
+  @DeleteMapping("/employees/{id}")
+  public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id) {
+    return employeeServiceImpl.deleteEmployee(id);
+  }
 }

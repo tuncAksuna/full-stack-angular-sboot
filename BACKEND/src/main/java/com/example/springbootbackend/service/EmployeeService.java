@@ -9,21 +9,22 @@ import java.util.Map;
 
 public interface EmployeeService {
 
-    ResponseEntity<Employee> firstNameSearching(String firstName);
+  ResponseEntity<Employee> firstNameSearching(String firstName);
 
-    List<Employee> getAllEmployees();
+  List<Employee> getAllEmployees(int page , int size);
 
-    Page<Employee> getAllEmployeesPaginate(int page,int size);
-    // TODO : BU METOD DAHA SONRA YAPILACAKTIR PAGINATION İÇİN
+  Page<Employee> getAllEmployeesPaginate(int page, int size);
+  // TODO : BU METOD DAHA SONRA YAPILACAKTIR PAGINATION İÇİN
 
-    ResponseEntity<Employee> getEmployeeByFirstName(String firstName);
+  ResponseEntity<Employee> getEmployeeByFirstName(String firstName);
 
-    ResponseEntity<Employee> getEmployeeById(Long id);
+  ResponseEntity<Employee> getEmployeeById(Long id);
 
-    Employee createEmployee(Employee employee);
+  Employee createEmployee(Employee employee);
 
-    ResponseEntity<Employee> updateEmployee(Long id,Employee employeeDetails);
+  ResponseEntity<Employee> updateEmployee(Long id, Employee employeeDetails);
 
-    ResponseEntity<Map<String,Boolean>> deleteEmployee(Long id);
+  ResponseEntity<Map<String, Boolean>> deleteEmployee(Long id);
+
 
 }
