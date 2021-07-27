@@ -1,7 +1,6 @@
 package com.example.springbootbackend.service;
 
 import com.example.springbootbackend.model.Employee;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -12,9 +11,6 @@ public interface EmployeeService {
   ResponseEntity<Employee> firstNameSearching(String firstName);
 
   List<Employee> getAllEmployees(int page , int size);
-
-  Page<Employee> getAllEmployeesPaginate(int page, int size);
-  // TODO : BU METOD DAHA SONRA YAPILACAKTIR PAGINATION İÇİN
 
   ResponseEntity<Employee> getEmployeeByFirstName(String firstName);
 

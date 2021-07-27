@@ -11,10 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -40,16 +37,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   }
 
-  public List<Employee> getAllEmployees(int page ,int size) {
-    Pageable pageable = PageRequest.of(page,size);
+  public List<Employee> getAllEmployees(int page, int size) {
+    int[] myInt = {10,20,304,50};
+    Pageable pageable = PageRequest.of(page, size);
     Page<Employee> employeePagination = employeeRepository.findAll(pageable);
 
     return employeePagination.toList();
-  }
-
-  public Page<Employee> getAllEmployeesPaginate(int page, int size) {
-    return employeeRepository.findAll(PageRequest.of(page, size));
-    // TODO : BU METOD DAHA SONRA YAPILACAKTIR PAGINATION İÇİN
   }
 
   public ResponseEntity<Employee> getEmployeeByFirstName(String firstName) {
