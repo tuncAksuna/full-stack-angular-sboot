@@ -1,25 +1,15 @@
 package com.example.springbootbackend.controller;
 
-import com.example.springbootbackend.config.filemessage.ResponseFile;
-import com.example.springbootbackend.config.filemessage.ResponseMessage;
 import com.example.springbootbackend.model.Employee;
-import com.example.springbootbackend.model.FileDB;
 import com.example.springbootbackend.service.EmployeeServiceImpl;
-import com.example.springbootbackend.service.FileStorageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/v1/")

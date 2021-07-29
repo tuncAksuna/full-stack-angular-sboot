@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
@@ -11,6 +11,7 @@ import { Employee } from './employee';
 export class EmployeeService {
 
   private _URL: string = "http://localhost:8080/api/v1/employees";
+  private _URLFile: string = "http://localhost:8080/api/transactions";
 
   constructor(private http: HttpClient) {
     // Injection 
@@ -45,7 +46,11 @@ export class EmployeeService {
     return this.http.delete(this._URL + '/' + id);
   }
 
+  downloadAllFilesAsListText(): Observable<any> {
+    const _filesURL = `${this._URLFile}/files`
+    return this.http.get(_filesURL, { responseType: 'blob' });
 
+  }
   handleError(_httpError) {
     let errorMessage: string = '';
 

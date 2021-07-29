@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../employee';
 import { EmployeeService } from '../employee.service';
-
+import * as fileSaver from 'file-saver';
+import { type } from 'node:os';
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
@@ -12,8 +13,8 @@ export class EmployeeListComponent implements OnInit {
 
   employees: Employee[];
   firstName: any;
-  page: number;
-  pageSize: number;
+  page: number = 0
+  pageSize: number = 5;
 
   val: string = '';
   constructor(private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute) { // Injection..
@@ -21,6 +22,7 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployees();
+    // this.downloadAllFiles();
   }
 
   getEmployees() {
@@ -29,7 +31,6 @@ export class EmployeeListComponent implements OnInit {
         this.employees = data;
       })
   }
-
 
   updateEmployee(id: number) {
     this.router.navigate(["/update-employee", id]);
@@ -49,11 +50,23 @@ export class EmployeeListComponent implements OnInit {
 
   searchEmployeeByFirstName() {
     if (this.firstName == "") {
-      this.ngOnInit();
+      this.getEmployees();
     } else {
       this.employees = this.employees.filter(res => {
         return res.firstName.toLocaleLowerCase().match(this.firstName.toLocaleLowerCase());
       })
     }
   }
+
+  downloadFilesAsTxt() {
+    this.employeeService.downloadAllFilesAsListText().subscribe(response => {
+      let blob: any = new Blob([response], { type: 'text/json; charset=utf-8' });
+      const url = window.URL.createObjectURL(blob);
+      fileSaver.saveAs(blob);
+    }), error => console.log("Error ...."),
+      () => console.info("File downloaded ...")
+  }
+
+ 
 }
+
