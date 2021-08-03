@@ -1,0 +1,33 @@
+<div class="container" style="margin-top: 25px;">
+    <h1 class="display-4">File</h1>
+    <p class="lead">
+        <em>You can upload/download txt/xlsx(excel) file from this page</em>
+    </p>
+    <hr>
+    <br>
+    <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+        <span><em>{{ progressInfo.fileName }}</em></span>
+        <div class="progress" style="margin:10px 0 10px 0">
+            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{ progressInfo.value }}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: progressInfo.value + '%' }">
+                {{ progressInfo.value }}%
+            </div>
+        </div>
+    </div>
+
+    <label class="btn btn-default">
+        <input  type="file" multiple (change)="selectFiles($event)" accept=".xlsx"/>
+      </label>
+
+    <button style="margin-bottom: 7px;" class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="uploadFiles()">
+        Upload
+      </button>
+
+    <div class="alert alert-light" role="alert">{{ message }}</div>
+
+    <div class="card">
+        <div class="card-header">List of Files</div>
+        <div class="list-group" *ngFor="let fileData of fileList">
+            <a href="#" class="list-group-item list-group-item-action" (click)="downloadFile(fileData.name)">{{fileData.name}}</a>
+        </div>
+    </div>
+</div>

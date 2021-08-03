@@ -16,7 +16,7 @@ public class FileDB {
   private String type;
   @Lob
   private byte[] data;
-  // @Lob :to store large object data (BLOB,CLOB)
+  // @Lob :to store large object data (BLOB,CLOB) in th database
 
   public FileDB() {
 

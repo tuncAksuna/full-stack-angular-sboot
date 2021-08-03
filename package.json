@@ -22,15 +22,18 @@
     "bootstrap": "^4.6.0",
     "bootstrap-icons": "^1.4.1",
     "file-saver": "^2.0.5",
+    "file-saver-es": "^2.0.5",
     "ng2-search-filter": "^0.5.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "xlsx": "^0.17.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1001.5",
     "@angular/cli": "~10.1.5",
     "@angular/compiler-cli": "~10.1.5",
+    "@types/file-saver": "^2.0.3",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",

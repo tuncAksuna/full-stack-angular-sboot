@@ -38,7 +38,6 @@ public class EmployeeServiceImpl implements EmployeeService {
   }
 
   public List<Employee> getAllEmployees(int page, int size) {
-    int[] myInt = {10,20,304,50};
     Pageable pageable = PageRequest.of(page, size);
     Page<Employee> employeePagination = employeeRepository.findAll(pageable);
 

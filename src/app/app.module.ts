@@ -10,13 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FileTransactionsComponent } from './file-transactions/file-transactions.component';
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeListComponent,
     EmployeeCreateComponent,
     UpdateEmployeeComponent,
-    EmployeeDetailsComponent
+    EmployeeDetailsComponent,
+    FileTransactionsComponent,
   ],
   imports: [
     BrowserModule,

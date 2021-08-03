@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../employee';
 import { EmployeeService } from '../employee.service';
 import * as fileSaver from 'file-saver';
-import { type } from 'node:os';
+import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
@@ -16,13 +17,19 @@ export class EmployeeListComponent implements OnInit {
   page: number = 0
   pageSize: number = 5;
 
-  val: string = '';
-  constructor(private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute) { // Injection..
+  // file transactions ...
+  selectedFiles: FileList;
+  progressInfos = [];
+  message = '';
+  fileInfos: Observable<any>;
+
+  constructor(private employeeService: EmployeeService,
+    private router: Router,
+    private route: ActivatedRoute) { // Injection..
   }
 
   ngOnInit(): void {
     this.getEmployees();
-    // this.downloadAllFiles();
   }
 
   getEmployees() {
@@ -58,15 +65,5 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
-  downloadFilesAsTxt() {
-    this.employeeService.downloadAllFilesAsListText().subscribe(response => {
-      let blob: any = new Blob([response], { type: 'text/json; charset=utf-8' });
-      const url = window.URL.createObjectURL(blob);
-      fileSaver.saveAs(blob);
-    }), error => console.log("Error ...."),
-      () => console.info("File downloaded ...")
-  }
-
- 
 }
 

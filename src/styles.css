@@ -2,9 +2,9 @@
 
 .footer {
     position: absolute;
+    z-index: 999;
     bottom: 0;
     width: 100%;
-    height: 90px;
     color: white;
     background-color: #007BFF;
     text-align: center;
