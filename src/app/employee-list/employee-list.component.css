@@ -3,7 +3,18 @@
     justify-content: flex-end;
 }
 
-#overInput input {
+#overInput button {
+    height: 28px;
+    width: 100px;
+    margin: 23px 10px 0 0;
+}
+
+.mat-form-field {
+    margin-right: 12px;
+}
+
+
+/* #overInput input {
     margin: 10px 8px 10px 0;
     width: 225px;
     border: none;
@@ -14,12 +25,7 @@
     text-align: right;
 }
 
-#overInput button {
-    height: 28px;
-    margin: 10px 10px 0 0;
-}
-
 input:hover {
     border: 2px solid #007BFF;
     padding: 4px;
-}
+} */

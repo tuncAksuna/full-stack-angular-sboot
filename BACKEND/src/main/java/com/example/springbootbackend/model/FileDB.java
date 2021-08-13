@@ -1,8 +1,11 @@
 package com.example.springbootbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "file")
@@ -16,16 +19,17 @@ public class FileDB {
   private String type;
   @Lob
   private byte[] data;
-  // @Lob :to store large object data (BLOB,CLOB) in th database
+  private String uploadedTime;
 
   public FileDB() {
 
   }
 
-  public FileDB(String name, String type, byte[] data) {
+  public FileDB(String name, String type, byte[] data, String uploadedTime) {
     this.name = name;
     this.type = type;
     this.data = data;
+    this.uploadedTime = uploadedTime;
   }
 
   public String getId() {
@@ -58,5 +62,13 @@ public class FileDB {
 
   public void setData(byte[] data) {
     this.data = data;
+  }
+
+  public String getUploadedTime() {
+    return uploadedTime;
+  }
+
+  public void setUploadedTime(String uploadedTime) {
+    this.uploadedTime = uploadedTime;
   }
 }

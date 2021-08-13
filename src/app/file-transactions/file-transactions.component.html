@@ -1,5 +1,4 @@
-<div class="container" style="margin-top: 25px;">
-    <h1 class="display-4">File</h1>
+<div class="container" style="margin-top: 100px;">
     <p class="lead">
         <em>You can upload/download txt/xlsx(excel) file from this page</em>
     </p>
@@ -18,16 +17,34 @@
         <input  type="file" multiple (change)="selectFiles($event)" accept=".xlsx"/>
       </label>
 
-    <button style="margin-bottom: 7px;" class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="uploadFiles()">
+    <button style="margin-bottom: 7px;" class="btn btn-warning btn-sm" [disabled]="!selectedFiles" (click)="uploadFiles()">
         Upload
       </button>
 
     <div class="alert alert-light" role="alert">{{ message }}</div>
-
+    <!-- 
     <div class="card">
         <div class="card-header">List of Files</div>
         <div class="list-group" *ngFor="let fileData of fileList">
-            <a href="#" class="list-group-item list-group-item-action" (click)="downloadFile(fileData.name)">{{fileData.name}}</a>
+            <a href="#" class="list-group-item list-group-item-action" (click)="downloadFile(fileData)">{{fileData.name}}</a>
         </div>
-    </div>
+    </div> -->
+    <table class="table table-hover" style="margin-top: 50px;">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">FILE NAME</th>
+                <th scope="col">FILE TYPE</th>
+                <th scope="col">UPLOADED TIME</th>
+                <th scope="col">Download file</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let fileData of fileList">
+                <td>{{fileData.name}}</td>
+                <td>{{fileData.type}}</td>
+                <td>{{fileData.uploadedTime}}</td>
+                <td><a href="#" class="list-group-item list-group-item-action" (click)="downloadFile(fileData)">Download</a></td>
+            </tr>
+        </tbody>
+    </table>
 </div>

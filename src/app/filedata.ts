@@ -3,4 +3,5 @@ export class FileData {
     name?: string;
     type?: string;
     data?: any;
+    uploadedTime?: string;
 }

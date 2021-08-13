@@ -20,14 +20,12 @@ public class EmployeeServiceImpl implements EmployeeService {
   private final static String EMPLOYEE_ALREADY_EXISTS = "Employee already exists in the database ";
   private final static String EMPLOYEE_NOT_FOUND_BY_FIRST_NAME = "First name not found in the database";
 
-  @Autowired
   private final EmployeeRepository employeeRepository;
 
   @Autowired
   public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
     this.employeeRepository = employeeRepository;
   }
-
 
   public ResponseEntity<Employee> firstNameSearching(String firstName) {
     Employee employeeByFirstName = employeeRepository.findByFirstNameContaining(firstName).orElseThrow(() ->
@@ -80,15 +78,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     return ResponseEntity.ok(updatedEmployee);
   }
 
-  public ResponseEntity<Map<String, Boolean>> deleteEmployee(Long id) {
+  public ResponseEntity<Object> deleteEmployee(Long id) {
 
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
       new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
     employeeRepository.delete(employee);
-    Map<String, Boolean> response = new HashMap<>();
-    response.put("Deleted ", Boolean.TRUE);
-    return ResponseEntity.ok(response);
+
+    return ResponseEntity.ok("Employee successfully deleted");
   }
 
 

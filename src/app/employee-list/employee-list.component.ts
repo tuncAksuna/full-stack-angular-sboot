@@ -5,6 +5,8 @@ import { EmployeeService } from '../employee.service';
 import * as fileSaver from 'file-saver';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
+
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
@@ -14,26 +16,36 @@ export class EmployeeListComponent implements OnInit {
 
   employees: Employee[];
   firstName: any;
-  page: number = 0
+  page: number = 0;
   pageSize: number = 5;
-
-  // file transactions ...
-  selectedFiles: FileList;
-  progressInfos = [];
-  message = '';
-  fileInfos: Observable<any>;
+  totalElements: number = 0; // for pagination
 
   constructor(private employeeService: EmployeeService,
-    private router: Router,
-    private route: ActivatedRoute) { // Injection..
+    private router: Router,) { // Injection..
   }
+
+  // nextPage(event: PageEvent) {
+  //   const request = {};
+  //   request['page'] = event.pageIndex.toString();
+  //   request['pageSize'] = event.pageSize.toString();
+  //   this.getAllEmployees(request);
+  // }
+
+  // private getAllEmployees(request) {
+
+  //   this.employeeService.getEmployeeList(request)
+  //     .subscribe(data => {
+  //       this.employees = data['content'];
+  //       this.totalElements = data['totalElements'];
+  //     });
+  // }
 
   ngOnInit(): void {
-    this.getEmployees();
+    this.getAll();
   }
 
-  getEmployees() {
-    this.employeeService.getEmployeeList(this.page, this.pageSize).subscribe(
+  getAll() {
+    this.employeeService.getEmployees(this.page, this.pageSize).subscribe(
       data => {
         this.employees = data;
       })
@@ -45,7 +57,7 @@ export class EmployeeListComponent implements OnInit {
 
   deleteEmployee(id: number) {
     this.employeeService.deleteEmployee(id).subscribe(deletedData => {
-      this.getEmployees();
+      this.getAll();
       console.log(deletedData);
     })
     error => console.log(error);
@@ -57,7 +69,7 @@ export class EmployeeListComponent implements OnInit {
 
   searchEmployeeByFirstName() {
     if (this.firstName == "") {
-      this.getEmployees();
+      this.getAll();
     } else {
       this.employees = this.employees.filter(res => {
         return res.firstName.toLocaleLowerCase().match(this.firstName.toLocaleLowerCase());

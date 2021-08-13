@@ -10,7 +10,7 @@ public interface EmployeeService {
 
   ResponseEntity<Employee> firstNameSearching(String firstName);
 
-  List<Employee> getAllEmployees(int page , int size);
+  List<Employee> getAllEmployees(int page, int size);
 
   ResponseEntity<Employee> getEmployeeByFirstName(String firstName);
 
@@ -20,7 +20,7 @@ public interface EmployeeService {
 
   ResponseEntity<Employee> updateEmployee(Long id, Employee employeeDetails);
 
-  ResponseEntity<Map<String, Boolean>> deleteEmployee(Long id);
+  ResponseEntity<Object> deleteEmployee(Long id);
 
 
 }

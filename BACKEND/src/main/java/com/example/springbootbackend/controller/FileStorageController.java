@@ -2,7 +2,7 @@ package com.example.springbootbackend.controller;
 
 import com.example.springbootbackend.config.filemessage.UploadFileResponse;
 import com.example.springbootbackend.model.FileDB;
-import com.example.springbootbackend.service.FileStorageServiceImpl;
+import com.example.springbootbackend.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -23,14 +23,13 @@ import java.util.stream.Stream;
 @CrossOrigin
 public class FileStorageController {
 
-  private final FileStorageServiceImpl fileStorageService;
+  private final FileStorageService fileStorageService;
 
   @Autowired
-  public FileStorageController(FileStorageServiceImpl fileStorageService) {
+  public FileStorageController(FileStorageService fileStorageService) {
     this.fileStorageService = fileStorageService;
   }
 
-  @CrossOrigin
   @GetMapping("/files/download/{fileId}")
   public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileId) throws FileNotFoundException {
 
@@ -56,7 +55,7 @@ public class FileStorageController {
       .path(fileDB.getId())
       .toUriString();
 
-    return new UploadFileResponse(fileDB.getName(), fileDownloadUri, file.getContentType(), file.getSize());
+    return new UploadFileResponse(fileDB.getName(), fileDownloadUri, file.getContentType(), file.getSize(),fileDB.getUploadedTime());
   }
 
   @PostMapping("/files/uploadMultiple")

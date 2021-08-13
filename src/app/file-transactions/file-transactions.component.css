@@ -1,0 +1,10 @@
+table tbody tr td a {
+    text-align: center;
+    border-radius: 3px;
+    padding: 6px;
+    transition: padding 250ms;
+}
+
+table tbody tr td :hover {
+    padding: 12px;
+}
