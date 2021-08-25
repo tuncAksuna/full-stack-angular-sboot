@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Employee } from '../employee';
-import { EmployeeService } from '../employee.service';
-import * as fileSaver from 'file-saver';
-import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
+import { Employee } from '../models/employee';
+import { EmployeeService } from '../services/employee.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -16,29 +12,13 @@ export class EmployeeListComponent implements OnInit {
 
   employees: Employee[];
   firstName: any;
+
   page: number = 0;
   pageSize: number = 5;
-  totalElements: number = 0; // for pagination
+  totalElements: number = 0;
 
-  constructor(private employeeService: EmployeeService,
-    private router: Router,) { // Injection..
+  constructor(private employeeService: EmployeeService, private router: Router,) {
   }
-
-  // nextPage(event: PageEvent) {
-  //   const request = {};
-  //   request['page'] = event.pageIndex.toString();
-  //   request['pageSize'] = event.pageSize.toString();
-  //   this.getAllEmployees(request);
-  // }
-
-  // private getAllEmployees(request) {
-
-  //   this.employeeService.getEmployeeList(request)
-  //     .subscribe(data => {
-  //       this.employees = data['content'];
-  //       this.totalElements = data['totalElements'];
-  //     });
-  // }
 
   ngOnInit(): void {
     this.getAll();
@@ -76,6 +56,5 @@ export class EmployeeListComponent implements OnInit {
       })
     }
   }
-
 }
 

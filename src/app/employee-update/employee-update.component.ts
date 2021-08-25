@@ -1,17 +1,15 @@
-import { Component, ErrorHandler, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { error } from 'selenium-webdriver';
-import { Employee } from '../employee';
-import { EmployeeService } from '../employee.service';
+import { Employee } from '../models/employee';
+import { EmployeeService } from '../services/employee.service';
 
 @Component({
-  selector: 'app-update-employee',
-  templateUrl: './update-employee.component.html',
-  styleUrls: ['./update-employee.component.css']
+  selector: 'app-employee-update',
+  templateUrl: './employee-update.component.html',
+  styleUrls: ['./employee-update.component.css']
 })
-export class UpdateEmployeeComponent implements OnInit {
+export class EmployeeUpdateComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router) { }
 
@@ -27,14 +25,6 @@ export class UpdateEmployeeComponent implements OnInit {
       }),
       error => console.log(error);
   }
-
-  updatedEmployee() {
-    this.employeeService.updateEmployee(this.id, this.employee).subscribe(data => {
-        this.goToEmployeeList();
-    }),
-      error => console.log(error);
-  }
-
 
   goToEmployeeList() {
     return this.router.navigate(["/employees"]);
@@ -59,7 +49,13 @@ export class UpdateEmployeeComponent implements OnInit {
       ]
     ),
   })
-
+  
+  updatedEmployee() {
+    this.employeeService.updateEmployee(this.id, this.employee).subscribe(data => {
+        this.goToEmployeeList();
+    }),
+      error => console.log(error);
+  }
 
   get firstName() {
     return this.updateEmployeeInfo.get("firstName");
@@ -72,4 +68,5 @@ export class UpdateEmployeeComponent implements OnInit {
   get emailID() {
     return this.updateEmployeeInfo.get("emailID");
   }
+
 }

@@ -3,8 +3,6 @@ package com.example.springbootbackend.controller;
 import com.example.springbootbackend.model.Employee;
 import com.example.springbootbackend.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,24 +62,4 @@ public class EmployeeController {
     return employeeService.deleteEmployee(id);
   }
 }
-  /*
-  @PostMapping("/getAll")
-  public List<Employee> getAll(@RequestBody Page page) {
-    System.out.println("GET ALL EMPLOYEES");
-    return employeeServiceImpl.getAllEmployees(Integer.valueOf(page.getPage()),Integer.valueOf(page.getPageSize()));
-  }
-/*
-  @GetMapping
-  public Page<Employee> list(@RequestParam(name = "page", defaultValue = "0") int page,
-                             @RequestParam(name = "size", defaultValue = "10") int size) {
-    PageRequest pageRequest = PageRequest.of(page, size);
-    Page<Employee> pageResult = .findAll(pageRequest);
-    List<Employee> todos = pageResult
-      .stream()
-      .map(Employee::new)
-      .collect(toList());
 
-    return new PageImpl<>(todos, pageRequest, pageResult.getTotalElements());
-
-  }
- */

@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { saveAs } from 'file-saver';
-import { FileData } from 'src/app/filedata';
-import { FileTransactionsService } from '../file-transactions-service';
+import { FileData } from 'src/app/models/filedata';
+import { FileTransactionsService } from '../services/file-transactions-service';
 
 @Component({
   selector: 'app-file-transactions',

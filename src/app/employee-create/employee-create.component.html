@@ -12,9 +12,6 @@
         <div class="form-group">
             <label for="lastName"><i>Last Name</i> </label>
             <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="employee.lastName" required formControlName="lastName">
-            <!-- <div class="alert alert-danger" *ngIf="lastName.touched && lastName.invalid">
-                <span *ngIf="lastName.error.required">Last name is required</span>
-            </div> -->
             <div class="alert alert-danger" *ngIf="lastName.touched && lastName.errors?.required">Last name is required</div>
             <div class="alert alert-danger" *ngIf="lastName.touched && lastName.errors?.maxlength">The last name should be <i>' {{ lastName.errors.maxlength.requiredLength }} '</i> characters</div>
         </div>
