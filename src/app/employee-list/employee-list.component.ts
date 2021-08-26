@@ -10,12 +10,12 @@ import { EmployeeService } from '../services/employee.service';
 })
 export class EmployeeListComponent implements OnInit {
 
-  employees: Employee[];
+  employeeList: Employee[];
   firstName: any;
 
-  page: number = 0;
-  pageSize: number = 5;
-  totalElements: number = 0;
+  // page: number = 0;
+  // pageSize: number = 5;
+  // totalElements: number = 0;
 
   constructor(private employeeService: EmployeeService, private router: Router,) {
   }
@@ -24,11 +24,51 @@ export class EmployeeListComponent implements OnInit {
     this.getAll();
   }
 
-  getAll() {
-    this.employeeService.getEmployees(this.page, this.pageSize).subscribe(
-      data => {
-        this.employees = data;
+  employee: any;
+  currentEmployee = null;
+  currentIndex = -1;
+
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizeOptions = [3, 5, 10, 50, 100];
+
+  getRequestParam(page, pageSize): any {
+    let params = {};
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+  getAll(): void {
+    const params = this.getRequestParam(this.page, this.pageSize);
+
+    this.employeeService.getAllEmployee(params).subscribe(response => {
+      const { employees, totalItems } = response;
+      this.employee = employees;
+      this.count = totalItems;
+      console.log(response);
+    },
+      error => {
+        console.warn(error);
       })
+  }
+
+  handlePageChange(event): void {
+    this.page = event;
+    this.getAll();
+  }
+
+  handlePageSizeChange(event): void {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.getAll();
   }
 
   updateEmployee(id: number) {
@@ -51,7 +91,7 @@ export class EmployeeListComponent implements OnInit {
     if (this.firstName == "") {
       this.getAll();
     } else {
-      this.employees = this.employees.filter(res => {
+      this.employee = this.employee.filter(res => {
         return res.firstName.toLocaleLowerCase().match(this.firstName.toLocaleLowerCase());
       })
     }

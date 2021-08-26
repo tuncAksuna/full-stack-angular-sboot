@@ -4,12 +4,15 @@ import com.example.springbootbackend.model.Employee;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeService {
 
   ResponseEntity<Employee> firstNameSearching(String firstName);
 
-  List<Employee> getAllEmployees(int page, int size);
+ // List<Employee> getAllEmployees(int page, int size);
+
+  ResponseEntity<Map<String, Object>> getAllEmployeeByPagination(int page, int size);
 
   ResponseEntity<Employee> getEmployeeByFirstName(String firstName);
 
