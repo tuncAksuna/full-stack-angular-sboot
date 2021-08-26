@@ -13,9 +13,10 @@
     margin-right: 12px;
 }
 
-#overInput input {
+
+/* #overInput input {
     margin: 10px 8px 10px 0;
-    width: 120px;
+    width: 225px;
     border: none;
     border-bottom: 1px solid #007BFF;
     border-radius: 5px;
@@ -27,4 +28,4 @@
 input:hover {
     border: 2px solid #007BFF;
     padding: 4px;
-}
+} */
