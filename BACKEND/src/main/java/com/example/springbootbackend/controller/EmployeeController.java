@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/v1/")
@@ -27,11 +27,12 @@ public class EmployeeController {
     return employeeService.firstNameSearching(firstName);
   }
 
-  @GetMapping("/employees/{page}/{size}")
-  public List<Employee> getAllEmployees(@PathVariable int page,
-                                        @PathVariable int size) {
 
+  @GetMapping("/employees")
+  public ResponseEntity<Map<String, Object>> getAllEmployees(
+    @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
     return employeeService.getAllEmployees(page, size);
+
   }
 
   @GetMapping("/employees/firstName/{firstName}")

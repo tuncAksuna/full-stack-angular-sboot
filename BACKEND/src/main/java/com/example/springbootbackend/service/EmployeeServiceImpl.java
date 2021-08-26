@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -35,11 +36,28 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   }
 
-  public List<Employee> getAllEmployees(int page, int size) {
-    Pageable pageable = PageRequest.of(page, size);
-    Page<Employee> employeePagination = employeeRepository.findAll(pageable);
+  @Override
+  public ResponseEntity<Map<String, Object>> getAllEmployees(int page, int size) {
 
-    return employeePagination.toList();
+    try {
+      Pageable paging = PageRequest.of(page, size);
+
+      Page<Employee> pageTuts;
+      pageTuts = employeeRepository.findAll(paging);
+
+      List<Employee> employees = pageTuts.getContent();
+
+      Map<String, Object> response = new HashMap<>();
+      response.put("employees", employees);
+      response.put("currentPage", pageTuts.getNumber());
+      response.put("totalItems", pageTuts.getTotalElements());
+      response.put("totalPages", pageTuts.getTotalPages());
+
+      return new ResponseEntity<>(response, HttpStatus.OK);
+    } catch (Exception ex) {
+      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
   }
 
   public ResponseEntity<Employee> getEmployeeByFirstName(String firstName) {

@@ -18,12 +18,8 @@ export class EmployeeService {
   constructor(private http: HttpClient) {
   }
 
-  getEmployees(page: number, pageSize: number): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this._URL}/${page}/${pageSize}`)
-      .pipe(
-        retry(3),
-        catchError(this.handleHttpResponse),
-      )
+  getAllEmployee(params: any): Observable<any> {
+    return this.http.get(this._URL, { params });
   }
 
   createEmployee(employee: Employee): Observable<Employee> {
@@ -60,7 +56,7 @@ export class EmployeeService {
 
   handleHttpResponse(_httpError) {
     let errorMessage: string = '';
-    
+
     if (_httpError.status !== 200) {
       if (_httpError.error instanceof ErrorEvent) {
         errorMessage = `Error : ${_httpError.error.message}`

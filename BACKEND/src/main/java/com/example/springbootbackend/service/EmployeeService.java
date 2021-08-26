@@ -3,13 +3,13 @@ package com.example.springbootbackend.service;
 import com.example.springbootbackend.model.Employee;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
+import java.util.Map;
 
 public interface EmployeeService {
 
   ResponseEntity<Employee> firstNameSearching(String firstName);
 
-  List<Employee> getAllEmployees(int page, int size);
+  ResponseEntity<Map<String, Object>> getAllEmployees(int page, int size);
 
   ResponseEntity<Employee> getEmployeeByFirstName(String firstName);
 

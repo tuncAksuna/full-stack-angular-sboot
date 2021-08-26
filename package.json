@@ -26,6 +26,7 @@
     "file-saver": "^2.0.5",
     "file-saver-es": "^2.0.5",
     "ng2-search-filter": "^0.5.1",
+    "ngx-pagination": "^5.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "xlsx": "^0.17.0",
