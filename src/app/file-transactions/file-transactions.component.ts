@@ -33,7 +33,7 @@ export class FileTransactionsComponent implements OnInit {
 
   downloadFile(fileData: FileData) {
     this.fileService.download(fileData.id).subscribe(blob => {
-      saveAs(blob, fileData.id);
+      saveAs(blob, fileData.name);
     })
   }
 

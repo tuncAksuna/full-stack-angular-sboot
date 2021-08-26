@@ -15,7 +15,6 @@ export class EmployeeListComponent implements OnInit {
 
   page: number = 0;
   pageSize: number = 5;
-  totalElements: number = 0;
 
   constructor(private employeeService: EmployeeService, private router: Router,) {
   }

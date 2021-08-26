@@ -46,7 +46,7 @@ public class FileStorageServiceImpl implements FileStorageService {
     LocalDateTime now = LocalDateTime.now();
 
     try {
-      if (!(fileName.contains(".xlsx") || fileName.contains(".xls") || fileName.contains(".txt")) || fileName.isEmpty()) {
+      if (!(fileName.contains(".xlsx") || fileName.contains(".xls")) || fileName.isEmpty()) {
         throw new FileStorageException("Sorry ! File name contains invalid path sequence or your file is null: " + fileName);
       }
       FileDB fileDB = new FileDB(fileName, file.getContentType(), file.getBytes(), dtf.format(now));
