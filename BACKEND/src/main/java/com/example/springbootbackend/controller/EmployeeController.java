@@ -29,20 +29,12 @@ public class EmployeeController {
 
 
   @GetMapping("/employees")
-  public ResponseEntity<Map<String, Object>> getAllEmployeesByPagination(
+  public ResponseEntity<Map<String, Object>> getAllEmployees(
     @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
-    return employeeService.getAllEmployeeByPagination(page, size);
-
-  }
-
-  /*
-  @GetMapping("/employees/{page}/{size}")
-  public List<Employee> getAllEmployees(@PathVariable int page,
-                                        @PathVariable int size) {
-
     return employeeService.getAllEmployees(page, size);
+
   }
-*/
+
   @GetMapping("/employees/firstName/{firstName}")
   public ResponseEntity<Employee> getEmployeeByFirstName(@PathVariable("firstName") String firstName) {
 

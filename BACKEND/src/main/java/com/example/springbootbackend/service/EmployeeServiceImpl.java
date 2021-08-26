@@ -37,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
   }
 
   @Override
-  public ResponseEntity<Map<String, Object>> getAllEmployeeByPagination(int page, int size) {
+  public ResponseEntity<Map<String, Object>> getAllEmployees(int page, int size) {
 
     try {
       Pageable paging = PageRequest.of(page, size);
@@ -59,15 +59,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
   }
-
-  /*
-  public List<Employee> getAllEmployees(int page, int size) {
-    Pageable pageable = PageRequest.of(page, size);
-    Page<Employee> employeePagination = employeeRepository.findAll(pageable);
-
-    return employeePagination.toList();
-  }
- */
 
   public ResponseEntity<Employee> getEmployeeByFirstName(String firstName) {
     Employee employeeByFirstName = employeeRepository.findByFirstName(firstName).orElseThrow(() ->
