@@ -35,14 +35,14 @@
     </tbody>
 </table>
 <hr>
-<div class="col-md-12" id="ngx-paginator">
+<div id="ngx-paginator">
     <pagination-controls previousLabel="Prev" nextLabel="Next" responsive="true" (pageChange)="handlePageChange($event)"></pagination-controls>
 </div>
-<div class="mt-3">
-    Items per page :
-    <select (change)="handlePageSizeChange($event)">
+<div style="display:flex; justify-content: flex-end;">
+    <em>Items per page  </em>
+    <select style="margin:0 0 0 10px;" (change)="handlePageSizeChange($event)">
         <option *ngFor="let size of pageSizeOptions" [ngValue]="size">
-            {{size}}
+             {{size}}
         </option>
     </select>
 </div>

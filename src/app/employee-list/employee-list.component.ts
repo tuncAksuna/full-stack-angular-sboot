@@ -13,9 +13,6 @@ export class EmployeeListComponent implements OnInit {
   employeeList: Employee[];
   firstName: any;
 
-  // page: number = 0;
-  // pageSize: number = 5;
-  // totalElements: number = 0;
 
   constructor(private employeeService: EmployeeService, private router: Router,) {
   }
@@ -31,7 +28,7 @@ export class EmployeeListComponent implements OnInit {
   page = 1;
   count = 0;
   pageSize = 3;
-  pageSizeOptions = [3, 5, 10, 50, 100];
+  pageSizeOptions = [3, 5, 10, 15];
 
   getRequestParam(page, pageSize): any {
     let params = {};
