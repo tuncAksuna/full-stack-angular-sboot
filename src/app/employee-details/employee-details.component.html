@@ -1,13 +1,13 @@
-<h1 class="display-4">Employee Detail</h1>
-<hr>
-<div>
-    <div>
-        <label for=""><b>First Name</b> :  {{ employee.firstName }} </label>
-        <div>
-            <label for=""><b>Last Name</b> : {{ employee.lastName }} </label>
+<div class="container mt-5">
+    <h1>Employee detail</h1>
+    <div class="card" style="width: 30rem;">
+        <img class="card-img-top" src="../assets/employees.jpg" alt="Card image cap">
+        <div class="card-body">
         </div>
-        <div>
-            <label for=""><b>E-mail </b> : {{ employee.emailID }}  </label>
-        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><em><b>First Name : </b></em> {{employee.firstName}}</li>
+            <li class="list-group-item"><em><b>Last Name : </b></em> {{ employee.lastName }}</li>
+            <li class="list-group-item"><em><b>E-mail address: </b></em> {{ employee.emailID }} </li>
+        </ul>
     </div>
 </div>
