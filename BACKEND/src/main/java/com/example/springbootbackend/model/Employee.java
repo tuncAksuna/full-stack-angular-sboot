@@ -1,6 +1,7 @@
 package com.example.springbootbackend.model;
 
 import com.example.springbootbackend.config.validation.UniqueEmail;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -18,11 +19,9 @@ public class Employee {
   @Column(name = "first_name")
   private String firstName;
 
-
   @NotEmpty(message = "{lastName.notempty}")
   @Column(name = "last_name")
   private String lastName;
-
 
   @NotBlank
   @Email
@@ -30,11 +29,14 @@ public class Employee {
   @Column(name = "email_id", nullable = false)
   private String emailID;
 
+  private String createdTime;
 
-  public Employee(String firstName, String lastName, String emailID) {
+
+  public Employee(String firstName, String lastName, String emailID, String createdTime) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.emailID = emailID;
+    this.createdTime = createdTime;
   }
 
   public Employee() {
@@ -73,6 +75,14 @@ public class Employee {
     this.emailID = emailID;
   }
 
+  public String getCreatedTime() {
+    return createdTime;
+  }
+
+  public void setCreatedTime(String createdTime) {
+    this.createdTime = createdTime;
+  }
+
   @Override
   public String toString() {
     return "Employee{" +
@@ -80,6 +90,7 @@ public class Employee {
       ", firstName='" + firstName + '\'' +
       ", lastName='" + lastName + '\'' +
       ", emailID='" + emailID + '\'' +
+      ", createdTime='" + createdTime + '\'' +
       '}';
   }
 }
