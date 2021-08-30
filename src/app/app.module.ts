@@ -40,7 +40,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

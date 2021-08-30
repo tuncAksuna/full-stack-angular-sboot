@@ -1,48 +1,51 @@
-<h2 class="mb-4">Employee List</h2>
-
-<input type="text" class="form-control" name="firstName" placeholder="Enter first name for filtering employees" [(ngModel)]="firstName" (ngModelChange)="searchEmployeeByFirstName()">
-<hr>
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th>
-                <span class="badge badge-info"># ID</span>
-            </th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>
-                <span class="mr-2">
+<h3 class="display-4" style="margin-left:1rem">Employees</h3>
+<br>
+<div class="container" style="font-family: 'Poppins', sans-serif;">
+    <input type="text" class="form-control" name="firstName" placeholder="Enter first name for filtering employees" [(ngModel)]="firstName" (ngModelChange)="searchEmployeeByFirstName()">
+    <br>
+    <br>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <span class="badge badge-info"># </span>
+                </th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>
+                    <span class="mr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
                             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
                           </svg>
                       </span> E - mail
-            </th>
-            <th> Actions </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let employee of employee | paginate:{itemsPerPage:pageSizeOptions,currentPage:page,totalItems:count}; let i = index ">
-            <td> {{employee.id}} </td>
-            <td> {{employee.firstName}} </td>
-            <td> {{employee.lastName}} </td>
-            <td> {{employee.emailID}} </td>
-            <td>
-                <button class="btn btn-outline-info" (click)="updateEmployee(employee.id)">Update</button>
-                <button class="btn btn-outline-danger ml-4" (click)="deleteEmployee(employee.id)">Delete</button>
-                <button class="btn btn-outline-success ml-4" (click)="employeeDetails(employee.id)">Details</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<hr>
-<div id="ngx-paginator">
-    <pagination-controls previousLabel="Prev" nextLabel="Next" responsive="true" (pageChange)="handlePageChange($event)"></pagination-controls>
-</div>
-<div style="display:flex; justify-content: flex-end;">
-    <em>Items per page  </em>
-    <select style="margin:0 0 0 10px;" (change)="handlePageSizeChange($event)">
+                </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of employee | paginate:{itemsPerPage:pageSizeOptions,currentPage:page,totalItems:count}; let i = index ">
+                <td></td>
+                <td> {{employee.firstName}} </td>
+                <td> {{employee.lastName}} </td>
+                <td> {{employee.emailID}} </td>
+                <td>
+                    <button class="btn btn-outline-info" (click)="updateEmployee(employee.id)">Update</button>
+                    <button class="btn btn-outline-success ml-4" (click)="employeeDetails(employee.id)">Details</button>
+                    <button class="btn btn-outline-danger ml-4" (click)="deleteEmployee(employee.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <div id="ngx-paginator">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" responsive="true" (pageChange)="handlePageChange($event)"></pagination-controls>
+    </div>
+    <div style="display:flex; justify-content: flex-end;">
+        <em>Items per page  </em>
+        <select style="margin:0 0 0 10px;" (change)="handlePageSizeChange($event)">
         <option *ngFor="let size of pageSizeOptions" [ngValue]="size">
              {{size}}
         </option>
     </select>
+    </div>
 </div>
