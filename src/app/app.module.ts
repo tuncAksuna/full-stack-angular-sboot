@@ -17,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { EmployeeService } from './services/employee.service';
+import { FileTransactionsService } from './services/file-transactions-service';
 
 
 @NgModule({
@@ -44,7 +46,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [EmployeeService, FileTransactionsService],
   bootstrap: [AppComponent]
 })
 
