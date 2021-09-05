@@ -5,6 +5,7 @@
     <br>
     <br>
     <table class="table table-striped table-hover">
+
         <thead>
             <tr>
                 <th>
@@ -19,9 +20,10 @@
                           </svg>
                       </span> E - mail
                 </th>
-                <th> </th>
+                <th>Actions</th>
             </tr>
         </thead>
+
         <tbody>
             <tr *ngFor="let employee of employee | paginate:{itemsPerPage:pageSizeOptions,currentPage:page,totalItems:count}; let i = index ">
                 <td></td>
@@ -35,6 +37,7 @@
                 </td>
             </tr>
         </tbody>
+
     </table>
     <hr>
     <div id="ngx-paginator">

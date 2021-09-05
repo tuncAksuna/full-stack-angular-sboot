@@ -15,7 +15,6 @@ export class EmployeeDetailsComponent implements OnInit {
   id: number;
   employee: Employee;
 
-
   ngOnInit(): void {
     this.id = this._router.snapshot.params['id'];
 

@@ -4,4 +4,5 @@ export class Employee {
     lastName: string;
     emailID: string;
     createdTime: any;
+    updated:boolean;
 }

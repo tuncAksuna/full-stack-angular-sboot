@@ -86,7 +86,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     if (employeeOptional.isPresent()) {
       throw new EmployeeAlreadyExistException(EMPLOYEE_ALREADY_EXISTS);
     }
-    Employee saveEmployee = new Employee(employee.getFirstName(), employee.getLastName(), employee.getEmailID(), dtf.format(now));
+    Employee saveEmployee = new Employee(employee.getFirstName(), employee.getLastName(), employee.getEmailID(), dtf.format(now), employee.isUpdated());
     return employeeRepository.save(saveEmployee);
 
   }
@@ -98,6 +98,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     employee.setFirstName(employeeDetails.getFirstName());
     employee.setLastName(employeeDetails.getLastName());
     employee.setEmailID(employeeDetails.getEmailID());
+    employee.setUpdated(true);
 
     Employee updatedEmployee = employeeRepository.save(employee);
 

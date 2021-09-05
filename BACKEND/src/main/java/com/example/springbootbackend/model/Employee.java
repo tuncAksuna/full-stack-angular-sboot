@@ -31,12 +31,14 @@ public class Employee {
 
   private String createdTime;
 
+  private boolean isUpdated;
 
-  public Employee(String firstName, String lastName, String emailID, String createdTime) {
+  public Employee(String firstName, String lastName, String emailID, String createdTime, boolean isUpdated) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.emailID = emailID;
     this.createdTime = createdTime;
+    this.isUpdated = isUpdated;
   }
 
   public Employee() {
@@ -83,6 +85,14 @@ public class Employee {
     this.createdTime = createdTime;
   }
 
+  public boolean isUpdated() {
+    return isUpdated;
+  }
+
+  public void setUpdated(boolean updated) {
+    isUpdated = updated;
+  }
+
   @Override
   public String toString() {
     return "Employee{" +
@@ -91,6 +101,7 @@ public class Employee {
       ", lastName='" + lastName + '\'' +
       ", emailID='" + emailID + '\'' +
       ", createdTime='" + createdTime + '\'' +
+      ", isUpdated=" + isUpdated +
       '}';
   }
 }
