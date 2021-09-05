@@ -1,13 +1,49 @@
-<h1 class="display-4">Employee Detail</h1>
-<hr>
-<div>
-    <div>
-        <label for=""><b>First Name</b> :  {{ employee.firstName }} </label>
-        <div>
-            <label for=""><b>Last Name</b> : {{ employee.lastName }} </label>
-        </div>
-        <div>
-            <label for=""><b>E-mail </b> : {{ employee.emailID }}  </label>
+<div class="card">
+    <h3 class="card-header">
+        <i class="fa fa-user fa-2x" style="margin-right: 1rem;"></i> Details of <em>{{employee.firstName}}</em>
+    </h3>
+    <br>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <span class="badge badge-info"># ID</span> : {{ employee.id }}
+            </li>
+            <li class="list-group-item">
+                <small class="lead">First name : </small> {{ employee.firstName }}
+            </li>
+            <li class="list-group-item">
+                <small class="lead">Last name : </small> {{ employee.lastName }}
+            </li>
+            <li class="list-group-item">
+                <small class="lead">E-mail : </small> {{ employee.emailID }}
+                <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" class="ml-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-envelope-open-fill" viewBox="0 0 16 16">
+                            <path d="M8.941.435a2 2 0 0 0-1.882 0l-6 3.2A2 2 0 0 0 0 5.4v.313l6.709 3.933L8 8.928l1.291.717L16 5.715V5.4a2 2 0 0 0-1.059-1.765l-6-3.2zM16 6.873l-5.693 3.337L16 13.372v-6.5zm-.059 7.611L8 10.072.059 14.484A2 2 0 0 0 2 16h12a2 2 0 0 0 1.941-1.516zM0 13.373l5.693-3.163L0 6.873v6.5z"/>
+                          </svg>
+                </a>
+            </li>
+
+            <li class="list-group-item">
+                <small class="lead">Start date of work : </small> {{ employee.createdTime }}
+                <i class="fa fa-calendar" style="margin-left: 0.50rem;"></i>
+            </li>
+            <!--*Updated*-->
+            <li class="list-group-item" *ngIf="employee.updated === true">
+                <small class="lead">Updated : </small>
+                <i class="fa fa-check fa-2x" aria-hidden="true"></i>
+            </li>
+            <li class="list-group-item" *ngIf="employee.updated !== true">
+                <small class="lead">Updated : </small> <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+            </li>
+            <!--*Updated*-->
+            <hr>
+        </ul>
+        <br>
+        <div style="display: flex;justify-content: flex-end;">
+            <blockquote class="blockquote">
+                <footer style="margin-left:1rem;" class="blockquote-footer">You can update this employee from <cite title="Source Title">"Update employee page"</cite></footer>
+            </blockquote>
+            <button href="#" (click)="goToEmployeeUpdate()" style="margin-left: 1rem;" class="btn btn-outline-success btn-sm">Update {{employee.firstName}}</button>
         </div>
     </div>
 </div>

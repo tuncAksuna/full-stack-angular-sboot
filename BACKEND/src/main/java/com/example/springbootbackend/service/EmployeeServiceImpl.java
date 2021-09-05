@@ -4,6 +4,7 @@ import com.example.springbootbackend.config.exception.EmployeeAlreadyExistExcept
 import com.example.springbootbackend.config.exception.EmployeeNotFoundException;
 import com.example.springbootbackend.model.Employee;
 import com.example.springbootbackend.repository.EmployeeRepository;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -77,10 +80,14 @@ public class EmployeeServiceImpl implements EmployeeService {
   public Employee createEmployee(Employee employee) {
     Optional<Employee> employeeOptional = employeeRepository.findById(employee.getId());
 
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();
+
     if (employeeOptional.isPresent()) {
       throw new EmployeeAlreadyExistException(EMPLOYEE_ALREADY_EXISTS);
     }
-    return employeeRepository.save(employee);
+    Employee saveEmployee = new Employee(employee.getFirstName(), employee.getLastName(), employee.getEmailID(), dtf.format(now), employee.isUpdated());
+    return employeeRepository.save(saveEmployee);
 
   }
 
@@ -91,9 +98,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     employee.setFirstName(employeeDetails.getFirstName());
     employee.setLastName(employeeDetails.getLastName());
     employee.setEmailID(employeeDetails.getEmailID());
+    employee.setUpdated(true);
 
     Employee updatedEmployee = employeeRepository.save(employee);
-    return ResponseEntity.ok(updatedEmployee);
+
+    return ResponseEntity.status(HttpStatus.OK).body(updatedEmployee);
+
   }
 
   public ResponseEntity<Object> deleteEmployee(Long id) {

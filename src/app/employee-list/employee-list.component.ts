@@ -13,16 +13,6 @@ export class EmployeeListComponent implements OnInit {
   employeeList: Employee[];
   firstName: any;
 
-  // page: number = 0;
-  // pageSize: number = 5;
-  // totalElements: number = 0;
-
-  constructor(private employeeService: EmployeeService, private router: Router,) {
-  }
-
-  ngOnInit(): void {
-    this.getAll();
-  }
 
   employee: any;
   currentEmployee = null;
@@ -31,7 +21,14 @@ export class EmployeeListComponent implements OnInit {
   page = 1;
   count = 0;
   pageSize = 3;
-  pageSizeOptions = [3, 5, 10, 50, 100];
+  pageSizeOptions = [3, 5, 10, 15];
+
+  constructor(private employeeService: EmployeeService, private router: Router,) {
+  }
+
+  ngOnInit(): void {
+    this.getAll();
+  }
 
   getRequestParam(page, pageSize): any {
     let params = {};
@@ -53,7 +50,6 @@ export class EmployeeListComponent implements OnInit {
       const { employees, totalItems } = response;
       this.employee = employees;
       this.count = totalItems;
-      console.log(response);
     },
       error => {
         console.warn(error);
