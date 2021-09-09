@@ -19,6 +19,7 @@ import { EmployeeUpdateComponent } from './employee-update/employee-update.compo
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EmployeeService } from './services/employee.service';
 import { FileTransactionsService } from './services/file-transactions-service';
+import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { FileTransactionsService } from './services/file-transactions-service';
     EmployeeDetailsComponent,
     FileTransactionsComponent,
     EmployeeUpdateComponent,
+    ModalDialogComponent,
   ],
   imports: [
     BrowserModule,

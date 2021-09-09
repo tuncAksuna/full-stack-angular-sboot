@@ -1,0 +1,27 @@
+<div class="container" style="width: 75%;">
+    <a>
+        <i class="fa fa-times fa-1x" style="display: flex;justify-content: flex-end;"></i>
+    </a>
+    <h3 style="margin-bottom: 1rem;">Employee informations</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Last name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{employeeName}}</td>
+                <td>{{employeeLastName}}</td>
+                <td>{{employeeEmail}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <p>
+        <textarea name="message-text-area" rows="2" cols="40" #message> Message about {{employeeName}}.. </textarea>
+        <button class="btn btn-primary btn-sm" style="display: block;margin-top:1rem;">Send</button>
+    </p>
+</div>
