@@ -36,8 +36,8 @@
                     <button class="btn btn-outline-danger ml-4" (click)="deleteEmployee(employee.id)">Delete</button>
                 </td>
                 <td style="border-left: 1px solid gray;">
-                    <button style="margin-left: 4rem;" href="#" class="btn-btn-primary btn-sm" (click)="activeModal()" [hidden]="activeModalComponent">Send us</button>
-                    <app-modal-dialog *ngIf="activeModalComponent" [employeeName]="employee.firstName" [employeeLastName]="employee.lastName" [employeeEmail]="employee.emailID">
+                    <button style="margin-left: 4rem;" class="btn-btn-primary btn-sm" (click)="activeModal()" [hidden]="activeModalComponent">Send us</button>
+                    <app-modal-dialog [activeModalComponent]="activeModalComponent" [employeeName]="employee.firstName" [employeeLastName]="employee.lastName" [employeeEmail]="employee.emailID">
                     </app-modal-dialog>
                 </td>
             </tr>

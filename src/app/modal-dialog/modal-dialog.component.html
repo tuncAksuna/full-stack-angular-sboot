@@ -1,9 +1,9 @@
-<div class="container" style="width: 75%;">
-    <a>
-        <i class="fa fa-times fa-1x" style="display: flex;justify-content: flex-end;"></i>
+<div class="container" style="width: 80%;" *ngIf="activeModalComponent">
+    <a type="button" (click)="closeModalDialog()">
+        <i class="fa fa-times fa-1x"></i>
     </a>
     <h3 style="margin-bottom: 1rem;">Employee informations</h3>
-    <table>
+    <table class="table-striped">
         <thead>
             <tr>
                 <th>Name</th>
@@ -20,8 +20,8 @@
         </tbody>
     </table>
     <hr>
-    <p>
-        <textarea name="message-text-area" rows="2" cols="40" #message> Message about {{employeeName}}.. </textarea>
+    <div style="width: 100;">
+        <textarea name="message-text-area" rows="2" cols="40" #message style="width: 88%;"> Message about {{employeeName}}.. </textarea>
         <button class="btn btn-primary btn-sm" style="display: block;margin-top:1rem;">Send</button>
-    </p>
+    </div>
 </div>

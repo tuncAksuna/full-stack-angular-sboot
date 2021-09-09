@@ -16,12 +16,16 @@ export class ModalDialogComponent implements OnInit {
   @Input() employeeName: EmployeeListComponent | string;
   @Input() employeeLastName: EmployeeListComponent | string;
   @Input() employeeEmail: EmployeeListComponent | string;
-  @Input() activeModalComponent;
+  @Input() activeModalComponent: boolean;
+
 
   constructor() { }
 
-
   ngOnInit(): void {
+    
+  }
+
+  closeModalDialog() {
 
   }
 }

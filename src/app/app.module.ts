@@ -20,6 +20,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { EmployeeService } from './services/employee.service';
 import { FileTransactionsService } from './services/file-transactions-service';
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
+import { CommonModule } from '@angular/common';  
+
 
 
 @NgModule({
@@ -35,6 +37,7 @@ import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
