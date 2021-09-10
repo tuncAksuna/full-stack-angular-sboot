@@ -19,13 +19,16 @@ export class EmployeeService {
   }
 
   getAllEmployee(params: any): Observable<any> {
-    return this.http.get(this._URL, { params });
+    return this.http.get(this._URL, { params })
+      .pipe(
+        retry(3),
+        catchError(this.handleHttpResponse)
+      )
   }
 
   createEmployee(employee: Employee): Observable<Employee> {
     return this.http.post<Employee>(this._URL, employee)
       .pipe(
-        retry(3),
         catchError(this.handleHttpResponse),
       )
   }
@@ -41,7 +44,6 @@ export class EmployeeService {
   updateEmployee(id: number, employee: Employee): Observable<Employee> {
     return this.http.put<Employee>(this._URL + '/' + id, employee)
       .pipe(
-        retry(3),
         catchError(this.handleHttpResponse),
       )
   }
@@ -49,7 +51,6 @@ export class EmployeeService {
   deleteEmployee(id: number): Observable<Object> {
     return this.http.delete(this._URL + '/' + id)
       .pipe(
-        retry(3),
         catchError(this.handleHttpResponse),
       )
   }

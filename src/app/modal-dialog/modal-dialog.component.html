@@ -1,11 +1,9 @@
-<div class="container" style="width: 80%;" *ngIf="activeModalComponent">
-    <a type="button" (click)="closeModalDialog()">
-        <i class="fa fa-times fa-1x"></i>
-    </a>
-    <h3 style="margin-bottom: 1rem;">Employee informations</h3>
-    <table class="table-striped">
-        <thead>
+<div class="container" *ngIf="activeModalComponent">
+    <h3>Employee informations</h3>
+    <table class="table">
+        <thead class=thead-light>
             <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Last name</th>
                 <th>Email</th>
@@ -13,6 +11,7 @@
         </thead>
         <tbody>
             <tr>
+                <td><span class="badge badge-info">{{employeeId}}</span></td>
                 <td>{{employeeName}}</td>
                 <td>{{employeeLastName}}</td>
                 <td>{{employeeEmail}}</td>
@@ -20,8 +19,8 @@
         </tbody>
     </table>
     <hr>
-    <div style="width: 100;">
-        <textarea name="message-text-area" rows="2" cols="40" #message style="width: 88%;"> Message about {{employeeName}}.. </textarea>
-        <button class="btn btn-primary btn-sm" style="display: block;margin-top:1rem;">Send</button>
+    <div>
+        <textarea name="message-text-area" rows="3" cols="50" #message> Message about {{employeeName}}.. </textarea>
+        <button class="btn btn-primary btn-sm" id="sendButton">Send</button>
     </div>
 </div>

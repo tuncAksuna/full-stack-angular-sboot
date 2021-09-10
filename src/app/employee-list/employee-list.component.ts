@@ -22,8 +22,6 @@ export class EmployeeListComponent implements OnInit {
   pageSize = 3;
   pageSizeOptions = [3, 5, 10, 15];
 
-  activeModalComponent: boolean = false;
-
   constructor(private employeeService: EmployeeService, private router: Router,) {
   }
 
@@ -45,9 +43,6 @@ export class EmployeeListComponent implements OnInit {
     return params;
   }
 
-  activeModal() {
-    this.activeModalComponent = true;
-  }
 
   getAll(): void {
     const params = this.getRequestParam(this.page, this.pageSize);

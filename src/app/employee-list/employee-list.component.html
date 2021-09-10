@@ -1,4 +1,4 @@
-<h3 class="display-4" style="margin-left:1rem">Employees</h3>
+<h3 class="display-4" style="margin-left:1rem">Employees </h3>
 <br>
 <div class="container" style="font-family: 'Poppins', sans-serif;">
     <input type="text" class="form-control" name="firstName" placeholder="Enter first name for filtering employees" [(ngModel)]="firstName" (ngModelChange)="searchEmployeeByFirstName()">
@@ -19,8 +19,7 @@
                           </svg>
                       </span> E - mail
                 </th>
-                <th [hidden]="activeModalComponent">Actions</th>
-                <th style="border-left:1px solid gray; text-align: center;">Good/bad aspects</th>
+                <th>Actions</th>
             </tr>
         </thead>
 
@@ -30,15 +29,10 @@
                 <td> {{employee.firstName}} </td>
                 <td> {{employee.lastName}} </td>
                 <td> {{employee.emailID}} </td>
-                <td [hidden]="activeModalComponent">
+                <td>
                     <button class="btn btn-outline-info" (click)="updateEmployee(employee.id)">Update</button>
                     <button class="btn btn-outline-success ml-4" (click)="employeeDetails(employee.id)">Details</button>
                     <button class="btn btn-outline-danger ml-4" (click)="deleteEmployee(employee.id)">Delete</button>
-                </td>
-                <td style="border-left: 1px solid gray;">
-                    <button style="margin-left: 4rem;" class="btn-btn-primary btn-sm" (click)="activeModal()" [hidden]="activeModalComponent">Send us</button>
-                    <app-modal-dialog [activeModalComponent]="activeModalComponent" [employeeName]="employee.firstName" [employeeLastName]="employee.lastName" [employeeEmail]="employee.emailID">
-                    </app-modal-dialog>
                 </td>
             </tr>
         </tbody>

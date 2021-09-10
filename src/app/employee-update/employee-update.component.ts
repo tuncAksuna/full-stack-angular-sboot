@@ -49,10 +49,11 @@ export class EmployeeUpdateComponent implements OnInit {
       ]
     ),
   })
-  
+
   updatedEmployee() {
     this.employeeService.updateEmployee(this.id, this.employee).subscribe(data => {
-        this.goToEmployeeList();
+      console.log(`${this.employee.firstName} is successfully updated..`)
+      this.goToEmployeeList();
     }),
       error => console.log(error);
   }

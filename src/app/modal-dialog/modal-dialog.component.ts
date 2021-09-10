@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { EmployeeDetailsComponent } from '../employee-details/employee-details.component';
 import { EmployeeListComponent } from '../employee-list/employee-list.component';
 
-
-declare var $: any;
 
 @Component({
   selector: 'app-modal-dialog',
@@ -13,19 +12,14 @@ declare var $: any;
 
 export class ModalDialogComponent implements OnInit {
 
-  @Input() employeeName: EmployeeListComponent | string;
-  @Input() employeeLastName: EmployeeListComponent | string;
-  @Input() employeeEmail: EmployeeListComponent | string;
+  @Input() employeeName: EmployeeDetailsComponent;
+  @Input() employeeLastName: EmployeeDetailsComponent;
+  @Input() employeeEmail: EmployeeDetailsComponent;
+  @Input() employeeId: EmployeeDetailsComponent;
   @Input() activeModalComponent: boolean;
-
 
   constructor() { }
 
   ngOnInit(): void {
-    
-  }
-
-  closeModalDialog() {
-
   }
 }
