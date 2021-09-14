@@ -1,4 +1,4 @@
-table tbody tr td a {
+table tbody tr td button {
     text-align: center;
     border-radius: 3px;
     padding: 6px;
@@ -7,4 +7,8 @@ table tbody tr td a {
 
 table tbody tr td :hover {
     padding: 12px;
+}
+
+mat-form-field {
+    width: 220px;
 }

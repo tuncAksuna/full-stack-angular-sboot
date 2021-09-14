@@ -46,6 +46,16 @@ public class FileStorageController {
     return fileStorageService.getAllFiles();
   }
 
+  @GetMapping("files/downloadOrderByDataASC")
+  public Stream<FileDB> getAllFilesOrderBySizeASC() {
+    return fileStorageService.getAllFilesOrderBySizeASC();
+  }
+
+  @GetMapping("files/downloadOrderByDataDESC")
+  public Stream<FileDB> getAllFilesOrderBySizeDESC() {
+    return fileStorageService.getAllFilesOrderBySizeDESC();
+  }
+
   @PostMapping("/files/upload")
   public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
     FileDB fileDB = fileStorageService.storeFile(file);
@@ -55,7 +65,7 @@ public class FileStorageController {
       .path(fileDB.getId())
       .toUriString();
 
-    return new UploadFileResponse(fileDB.getName(), fileDownloadUri, file.getContentType(), file.getSize(),fileDB.getUploadedTime());
+    return new UploadFileResponse(fileDB.getName(), fileDownloadUri, file.getContentType(), file.getSize(), fileDB.getUploadedTime());
   }
 
   @PostMapping("/files/uploadMultiple")

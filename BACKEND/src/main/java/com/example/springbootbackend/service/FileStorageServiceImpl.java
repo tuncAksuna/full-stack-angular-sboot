@@ -4,13 +4,13 @@ import com.example.springbootbackend.config.exception.FileStorageException;
 import com.example.springbootbackend.model.FileDB;
 import com.example.springbootbackend.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
@@ -38,6 +38,15 @@ public class FileStorageServiceImpl implements FileStorageService {
     return fileRepository.findAll().stream();
   }
 
+  public Stream<FileDB> getAllFilesOrderBySizeASC(){
+    return fileRepository.findAll(Sort.by("data").ascending()).stream();
+  }
+
+  @Override
+  public Stream<FileDB> getAllFilesOrderBySizeDESC() {
+    return fileRepository.findAll(Sort.by("data").descending()).stream();
+  }
+
   @Override
   public FileDB storeFile(MultipartFile file) throws FileStorageException {
     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -55,4 +64,6 @@ public class FileStorageServiceImpl implements FileStorageService {
       throw new FileStorageException(FILE_STORAGE_COULDNT_STORE_EXCEPTION + fileName + "Please try again", ex);
     }
   }
+
+
 }

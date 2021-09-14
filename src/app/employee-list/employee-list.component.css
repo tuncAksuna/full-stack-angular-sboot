@@ -1,19 +1,14 @@
-#overInput {
-    display: flex;
-    justify-content: flex-end;
-}
-
 #overInput button {
     height: 28px;
     width: 100px;
     margin: 23px 10px 0 0;
 }
 
-.mat-form-field {
-    margin-right: 12px;
-}
-
 #ngx-paginator {
     display: flex;
     justify-content: flex-end;
+}
+
+.form-field-input {
+    width: 100%;
 }

@@ -13,4 +13,21 @@ html,
 body {
     height: 100%;
     margin: 0;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+html,
+body h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+em {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }

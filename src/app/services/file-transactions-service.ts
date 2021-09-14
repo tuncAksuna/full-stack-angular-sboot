@@ -43,6 +43,22 @@ export class FileTransactionsService {
       )
   }
 
+  listFilesOrderByDESC(): Observable<FileData[]> {
+    return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByDataDESC`)
+      .pipe(
+        retry(3),
+        catchError(this.handleError)
+      )
+  }
+
+  listFilesOrderByASC(): Observable<FileData[]> {
+    return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByDataASC`)
+      .pipe(
+        retry(3),
+        catchError(this.handleError)
+      )
+  }
+
   download(fileId: string | undefined): Observable<Blob> {
 
     return this.http.get(`${this._URLFile}/download/${fileId}`, {
@@ -58,7 +74,7 @@ export class FileTransactionsService {
   handleError(_httpError) {
     let errorMessage: string = '';
 
-    if(_httpError.status !== 200){
+    if (_httpError.status !== 200) {
       if (_httpError.error instanceof ErrorEvent) {
         errorMessage = `Error : ${_httpError.error.message}`
       } else {

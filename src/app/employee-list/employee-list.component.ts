@@ -19,7 +19,7 @@ export class EmployeeListComponent implements OnInit {
 
   page = 1;
   count = 0;
-  pageSize = 3;
+  pageSize = 5;
   pageSizeOptions = [3, 5, 10, 15];
 
   constructor(private employeeService: EmployeeService, private router: Router,) {

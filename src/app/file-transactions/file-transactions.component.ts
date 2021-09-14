@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { saveAs } from 'file-saver';
 import { FileData } from 'src/app/models/filedata';
 import { FileTransactionsService } from '../services/file-transactions-service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-file-transactions',
@@ -27,6 +28,18 @@ export class FileTransactionsComponent implements OnInit {
 
   getFileList(): void {
     this.fileService.listFiles().subscribe(results => {
+      this.fileList = results;
+    })
+  }
+
+  getFileListOrderByASC() {
+    this.fileService.listFilesOrderByASC().subscribe(results => {
+      this.fileList = results;
+    })
+  }
+
+  getFileListOrderByDESC() {
+    this.fileService.listFilesOrderByDESC().subscribe(results => {
       this.fileList = results;
     })
   }
