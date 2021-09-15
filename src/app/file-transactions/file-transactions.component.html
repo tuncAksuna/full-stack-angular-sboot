@@ -33,10 +33,10 @@
                 <button class="list-group-item list-group-item-action" (click)="getFileListOrderBySizeDESC()">By file size (DESC)</button>
             </mat-option>
             <mat-option>
-                <button class="list-group-item list-group-item-action" (click)="getFileListOrderByUploadedTimeASC()">By uploaded time (ASC)</button>
+                <button class="list-group-item list-group-item-action" (click)="getFileListOrderByUploadedTimeASC()">Last uploaded time</button>
             </mat-option>
             <mat-option>
-                <button class="list-group-item list-group-item-action" (click)="getFileListOrderByUploadedTimeDESC()">By size uploaded time(DESC)</button>
+                <button class="list-group-item list-group-item-action" (click)="getFileListOrderByUploadedTimeDESC()">First uploaded time</button>
             </mat-option>
         </mat-select>
     </mat-form-field>
@@ -45,7 +45,6 @@
         <thead class="thead-light">
             <tr>
                 <th scope="col">FILE NAME</th>
-                <th scope="col">FILE TYPE</th>
                 <th scope="col">UPLOADED TIME</th>
                 <th scope="col" style="text-align: center;">Action</th>
             </tr>
@@ -53,7 +52,6 @@
         <tbody>
             <tr *ngFor="let fileData of fileList">
                 <td>{{fileData.name}}</td>
-                <td>{{fileData.type}}</td>
                 <td>{{fileData.uploadedTime}}</td>
                 <td><button href="#" class="list-group-item list-group-item-action" (click)="downloadFile(fileData)">Download</button></td>
 

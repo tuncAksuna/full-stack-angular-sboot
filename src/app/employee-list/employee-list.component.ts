@@ -15,12 +15,11 @@ export class EmployeeListComponent implements OnInit {
 
   employee: any;
   currentEmployee = null;
-  currentIndex = -1;
 
-  page = 1;
-  count = 0;
-  pageSize = 5;
-  pageSizeOptions = [3, 5, 10, 15];
+  page: number = 1;
+  count: number = 0;
+  pageSize: number = 5;
+  pageSizeOptions: number[] = [3, 5, 10, 15];
 
   constructor(private employeeService: EmployeeService, private router: Router,) {
   }

@@ -2,7 +2,7 @@ import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { FileData } from 'src/app/models/filedata';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 /**
  * @author Cem Tunc AKSUNA - tuncOde
@@ -30,7 +30,6 @@ export class FileTransactionsService {
 
     return this.http.request(request)
       .pipe(
-        retry(3),
         catchError(this.handleError),
       )
   }
@@ -38,7 +37,6 @@ export class FileTransactionsService {
   listFiles(): Observable<FileData[]> {
     return this.http.get<FileData[]>(`${this._URLFile}/downloadAllFiles`)
       .pipe(
-        retry(3),
         catchError(this.handleError),
       )
   }
@@ -59,16 +57,16 @@ export class FileTransactionsService {
 
   listFilesOrderByUploadedTimeASC(): Observable<FileData[]> {
     return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByUploadedTimeASC`)
-    .pipe(
-      catchError(this.handleError)
-    )
+      .pipe(
+        catchError(this.handleError)
+      )
   }
 
   listFilesOrderByUploadedTimeDESC(): Observable<FileData[]> {
     return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByUploadedTimeDESC`)
-    .pipe(
-      catchError(this.handleError)
-    )
+      .pipe(
+        catchError(this.handleError)
+      )
   }
 
   download(fileId: string | undefined): Observable<Blob> {
@@ -78,7 +76,6 @@ export class FileTransactionsService {
     }
     )
       .pipe(
-        retry(3),
         catchError(this.handleError),
       )
   }
