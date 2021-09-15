@@ -32,14 +32,14 @@ export class FileTransactionsComponent implements OnInit {
     })
   }
 
-  getFileListOrderByASC() {
-    this.fileService.listFilesOrderByASC().subscribe(results => {
+  getFileListOrderBySizeASC() {
+    this.fileService.listFilesOrderBySizeASC().subscribe(results => {
       this.fileList = results;
     })
   }
 
-  getFileListOrderByDESC() {
-    this.fileService.listFilesOrderByDESC().subscribe(results => {
+  getFileListOrderBySizeDESC() {
+    this.fileService.listFilesOrderBySizeDESC().subscribe(results => {
       this.fileList = results;
     })
   }
@@ -73,9 +73,9 @@ export class FileTransactionsComponent implements OnInit {
   }
 
   uploadFiles(): void {
-    this.message = '';
     for (let i = 0; i < this.selectedFiles.length; i++) {
       this.upload(i, this.selectedFiles[i]);
+      this.message = 'File uploaded to the system'
     }
   }
 }

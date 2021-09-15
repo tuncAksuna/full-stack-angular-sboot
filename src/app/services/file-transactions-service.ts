@@ -43,7 +43,7 @@ export class FileTransactionsService {
       )
   }
 
-  listFilesOrderByDESC(): Observable<FileData[]> {
+  listFilesOrderBySizeDESC(): Observable<FileData[]> {
     return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByDataDESC`)
       .pipe(
         retry(3),
@@ -51,7 +51,7 @@ export class FileTransactionsService {
       )
   }
 
-  listFilesOrderByASC(): Observable<FileData[]> {
+  listFilesOrderBySizeASC(): Observable<FileData[]> {
     return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByDataASC`)
       .pipe(
         retry(3),
