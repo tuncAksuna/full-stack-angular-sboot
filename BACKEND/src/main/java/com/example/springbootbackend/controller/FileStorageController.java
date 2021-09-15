@@ -56,6 +56,16 @@ public class FileStorageController {
     return fileStorageService.getAllFilesOrderBySizeDESC();
   }
 
+  @GetMapping("files/downloadOrderByUploadedTimeASC")
+  public Stream<FileDB> getAllFilesOrderByUploadedTimeASC(){
+    return fileStorageService.getAllFilesOrderByUploadedTimeASC();
+  }
+
+  @GetMapping("files/downloadOrderByUploadedTimeDESC")
+  public Stream<FileDB> getAllFilesOrderByUploadedTimeDESC(){
+    return fileStorageService.getAllFilesOrderByUploadedTimeDESC();
+  }
+
   @PostMapping("/files/upload")
   public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
     FileDB fileDB = fileStorageService.storeFile(file);

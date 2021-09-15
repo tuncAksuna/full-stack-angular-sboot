@@ -20,5 +20,9 @@ public interface FileStorageService {
 
   Stream<FileDB> getAllFilesOrderBySizeDESC();
 
+  Stream<FileDB> getAllFilesOrderByUploadedTimeASC();
+
+  Stream<FileDB> getAllFilesOrderByUploadedTimeDESC();
+
 
 }

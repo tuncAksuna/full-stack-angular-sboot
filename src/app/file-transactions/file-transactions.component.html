@@ -26,8 +26,18 @@
     <mat-form-field>
         <mat-label>Sort by</mat-label>
         <mat-select>
-            <mat-option><button class="dropdown-item" class="list-group-item list-group-item-action" (click)="getFileListOrderByASC()">By file size (ASC)</button></mat-option>
-            <mat-option><button class="dropdown-item" class="list-group-item list-group-item-action" (click)="getFileListOrderByDESC()">By file size (DESC)</button></mat-option>
+            <mat-option>
+                <button class="list-group-item list-group-item-action" (click)="getFileListOrderBySizeASC()">By file size (ASC)</button>
+            </mat-option>
+            <mat-option>
+                <button class="list-group-item list-group-item-action" (click)="getFileListOrderBySizeDESC()">By file size (DESC)</button>
+            </mat-option>
+            <mat-option>
+                <button class="list-group-item list-group-item-action" (click)="getFileListOrderByUploadedTimeASC()">By uploaded time (ASC)</button>
+            </mat-option>
+            <mat-option>
+                <button class="list-group-item list-group-item-action" (click)="getFileListOrderByUploadedTimeDESC()">By size uploaded time(DESC)</button>
+            </mat-option>
         </mat-select>
     </mat-form-field>
 

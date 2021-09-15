@@ -46,7 +46,6 @@ export class FileTransactionsService {
   listFilesOrderBySizeDESC(): Observable<FileData[]> {
     return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByDataDESC`)
       .pipe(
-        retry(3),
         catchError(this.handleError)
       )
   }
@@ -54,9 +53,22 @@ export class FileTransactionsService {
   listFilesOrderBySizeASC(): Observable<FileData[]> {
     return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByDataASC`)
       .pipe(
-        retry(3),
         catchError(this.handleError)
       )
+  }
+
+  listFilesOrderByUploadedTimeASC(): Observable<FileData[]> {
+    return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByUploadedTimeASC`)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  listFilesOrderByUploadedTimeDESC(): Observable<FileData[]> {
+    return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByUploadedTimeDESC`)
+    .pipe(
+      catchError(this.handleError)
+    )
   }
 
   download(fileId: string | undefined): Observable<Blob> {

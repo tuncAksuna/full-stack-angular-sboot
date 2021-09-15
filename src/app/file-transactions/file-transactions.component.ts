@@ -32,18 +32,6 @@ export class FileTransactionsComponent implements OnInit {
     })
   }
 
-  getFileListOrderBySizeASC() {
-    this.fileService.listFilesOrderBySizeASC().subscribe(results => {
-      this.fileList = results;
-    })
-  }
-
-  getFileListOrderBySizeDESC() {
-    this.fileService.listFilesOrderBySizeDESC().subscribe(results => {
-      this.fileList = results;
-    })
-  }
-
   downloadFile(fileData: FileData) {
     this.fileService.download(fileData.id).subscribe(blob => {
       saveAs(blob, fileData.name);
@@ -78,4 +66,32 @@ export class FileTransactionsComponent implements OnInit {
       this.message = 'File uploaded to the system'
     }
   }
+
+  //* ORDERING
+  getFileListOrderBySizeASC() {
+    this.fileService.listFilesOrderBySizeASC().subscribe(results => {
+      this.fileList = results;
+    })
+  }
+
+  getFileListOrderBySizeDESC() {
+    this.fileService.listFilesOrderBySizeDESC().subscribe(results => {
+      this.fileList = results;
+    })
+  }
+
+  getFileListOrderByUploadedTimeASC() {
+    this.fileService.listFilesOrderByUploadedTimeASC().subscribe(results => {
+      this.fileList = results;
+    })
+
+  }
+
+  getFileListOrderByUploadedTimeDESC() {
+    this.fileService.listFilesOrderByUploadedTimeDESC().subscribe(results => {
+      this.fileList = results;
+    })
+  }
+
+  //* ORDERING
 }

@@ -38,13 +38,23 @@ public class FileStorageServiceImpl implements FileStorageService {
     return fileRepository.findAll().stream();
   }
 
-  public Stream<FileDB> getAllFilesOrderBySizeASC(){
+  public Stream<FileDB> getAllFilesOrderBySizeASC() {
     return fileRepository.findAll(Sort.by("data").ascending()).stream();
   }
 
   @Override
   public Stream<FileDB> getAllFilesOrderBySizeDESC() {
     return fileRepository.findAll(Sort.by("data").descending()).stream();
+  }
+
+  @Override
+  public Stream<FileDB> getAllFilesOrderByUploadedTimeASC() {
+    return fileRepository.findAll(Sort.by("uploadedTime").ascending()).stream();
+  }
+
+  @Override
+  public Stream<FileDB> getAllFilesOrderByUploadedTimeDESC() {
+    return fileRepository.findAll(Sort.by("uploadedTime").descending()).stream();
   }
 
   @Override
