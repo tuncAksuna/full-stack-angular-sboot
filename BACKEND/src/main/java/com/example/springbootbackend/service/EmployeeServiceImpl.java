@@ -4,6 +4,7 @@ import com.example.springbootbackend.config.exception.EmployeeAlreadyExistExcept
 import com.example.springbootbackend.config.exception.EmployeeNotFoundException;
 import com.example.springbootbackend.model.Employee;
 import com.example.springbootbackend.repository.EmployeeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
+@Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
 
   private final static String EMPLOYEE_NOT_FOUND_BY_ID = "Employee not found in the database";
@@ -34,6 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     Employee employeeByFirstName = employeeRepository.findByFirstNameContaining(firstName).orElseThrow(() ->
       new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
 
+    log.trace("Executing firstNameSearching [{}]", firstName);
     return ResponseEntity.ok(employeeByFirstName);
 
   }
@@ -55,17 +58,20 @@ public class EmployeeServiceImpl implements EmployeeService {
       response.put("totalItems", pageTuts.getTotalElements());
       response.put("totalPages", pageTuts.getTotalPages());
 
+      log.trace("Executing getAllEmployees ,page : [{}], size [{}] ", page, size);
       return new ResponseEntity<>(response, HttpStatus.OK);
+
     } catch (Exception ex) {
+      log.warn("Not executed getAllEmployees {}", page, ex);
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
   }
 
   public ResponseEntity<Employee> getEmployeeByFirstName(String firstName) {
     Employee employeeByFirstName = employeeRepository.findByFirstName(firstName).orElseThrow(() ->
       new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
 
+    log.trace("Executing getEmployeeByFirstName [{}]", firstName);
     return ResponseEntity.ok(employeeByFirstName);
   }
 
@@ -73,6 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
       new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
+    log.trace("Executing getEmployeeById [{}]", id);
     return ResponseEntity.ok(employee);
   }
 
@@ -83,9 +90,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     LocalDateTime now = LocalDateTime.now();
 
     if (employeeOptional.isPresent()) {
+      log.warn("[{}] already created , created time [{}] not executed createEmployee ", employee, employee.getCreatedTime());
       throw new EmployeeAlreadyExistException(EMPLOYEE_ALREADY_EXISTS);
     }
     Employee saveEmployee = new Employee(employee.getFirstName(), employee.getLastName(), employee.getEmailID(), dtf.format(now), employee.isUpdated());
+    log.trace("Executing createEmployee [{}]", employee);
     return employeeRepository.save(saveEmployee);
 
   }
@@ -101,6 +110,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     Employee updatedEmployee = employeeRepository.save(employee);
 
+    log.trace("Executing updateEmployee, employeeId : [{}], employee : [{}]", id, employeeDetails);
     return ResponseEntity.status(HttpStatus.OK).body(updatedEmployee);
 
   }
@@ -112,6 +122,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     employeeRepository.delete(employee);
 
+    log.trace("Executing deleteEmployee ,employeeId : [{}]", id);
     return ResponseEntity.ok("Employee successfully deleted");
   }
 

@@ -31,15 +31,12 @@ public class EmployeeController {
 
 
   @GetMapping("/employees")
-  public ResponseEntity<Map<String, Object>> getAllEmployees(
-    @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+  public ResponseEntity<Map<String, Object>> getAllEmployees(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
     return employeeService.getAllEmployees(page, size);
-
   }
 
   @GetMapping("/employees/firstName/{firstName}")
   public ResponseEntity<Employee> getEmployeeByFirstName(@PathVariable("firstName") String firstName) {
-
     return employeeService.getEmployeeByFirstName(firstName);
   }
 
