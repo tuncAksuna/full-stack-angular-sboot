@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.Date;
 
+/*
 @Configuration
 @EnableScheduling
 @ConditionalOnProperty(name = "scheduling.enabled", matchIfMissing = true) // disable during the tests
@@ -36,3 +37,4 @@ public class SchedulingConfig {
 // scheduled method has to return "void" and has to have no parameter(s)
 // all the scheduled tasks is ran on single thread by default
 
+*/
