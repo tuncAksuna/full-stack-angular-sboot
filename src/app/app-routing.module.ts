@@ -7,6 +7,7 @@ import { EmployeeUpdateComponent } from './employee-update/employee-update.compo
 import { FileTransactionsComponent } from './file-transactions/file-transactions.component';
 
 const routes: Routes = [
+ 
   {
     path: "employees",
     component: EmployeeListComponent
@@ -28,7 +29,10 @@ const routes: Routes = [
     component: EmployeeDetailsComponent
   },
   {
-    path: "**", redirectTo: 'employees', pathMatch: "full"
+    path: '**', redirectTo: 'employees', pathMatch: "full"
+  },
+  {
+    path: '', redirectTo: 'employees', pathMatch: "full"
   },
 ];
 

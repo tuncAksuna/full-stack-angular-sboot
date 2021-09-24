@@ -1,11 +1,13 @@
-<h3 class="display-4" style="margin-left:1rem">Employees</h3>
-<br>
-<div class="container" style="font-family: 'Poppins', sans-serif;">
-    <input type="text" class="form-control" name="firstName" placeholder="Enter first name for filtering employees" [(ngModel)]="firstName" (ngModelChange)="searchEmployeeByFirstName()">
+<h3 style="margin-left:1rem; font-size: 32px !important;">Employees </h3>
+<div class="container">
+    <mat-form-field class="form-field-input">
+        <mat-label>Search Employee</mat-label>
+        <input matInput placeholder="Ex. Cem Tunç" [(ngModel)]="firstName" (ngModelChange)="searchEmployeeByFirstName()">
+    </mat-form-field>
+
     <br>
     <br>
     <table class="table table-striped table-hover">
-
         <thead>
             <tr>
                 <th>
@@ -37,7 +39,6 @@
                 </td>
             </tr>
         </tbody>
-
     </table>
     <hr>
     <div id="ngx-paginator">

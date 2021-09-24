@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(value = "/api/transactions")
-@CrossOrigin
+@CrossOrigin(value = "*")
 public class FileStorageController {
 
   private final FileStorageService fileStorageService;
@@ -46,6 +46,26 @@ public class FileStorageController {
     return fileStorageService.getAllFiles();
   }
 
+  @GetMapping("files/downloadOrderByDataASC")
+  public Stream<FileDB> getAllFilesOrderBySizeASC() {
+    return fileStorageService.getAllFilesOrderBySizeASC();
+  }
+
+  @GetMapping("files/downloadOrderByDataDESC")
+  public Stream<FileDB> getAllFilesOrderBySizeDESC() {
+    return fileStorageService.getAllFilesOrderBySizeDESC();
+  }
+
+  @GetMapping("files/downloadOrderByUploadedTimeASC")
+  public Stream<FileDB> getAllFilesOrderByUploadedTimeASC(){
+    return fileStorageService.getAllFilesOrderByUploadedTimeASC();
+  }
+
+  @GetMapping("files/downloadOrderByUploadedTimeDESC")
+  public Stream<FileDB> getAllFilesOrderByUploadedTimeDESC(){
+    return fileStorageService.getAllFilesOrderByUploadedTimeDESC();
+  }
+
   @PostMapping("/files/upload")
   public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
     FileDB fileDB = fileStorageService.storeFile(file);
@@ -55,7 +75,7 @@ public class FileStorageController {
       .path(fileDB.getId())
       .toUriString();
 
-    return new UploadFileResponse(fileDB.getName(), fileDownloadUri, file.getContentType(), file.getSize(),fileDB.getUploadedTime());
+    return new UploadFileResponse(fileDB.getName(), fileDownloadUri, file.getContentType(), file.getSize(), fileDB.getUploadedTime());
   }
 
   @PostMapping("/files/uploadMultiple")

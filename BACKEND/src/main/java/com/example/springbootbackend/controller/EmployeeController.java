@@ -2,6 +2,7 @@ package com.example.springbootbackend.controller;
 
 import com.example.springbootbackend.model.Employee;
 import com.example.springbootbackend.service.EmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/v1/")
-@CrossOrigin
+@CrossOrigin(value = "*")
+@Slf4j
 public class EmployeeController {
 
   private final EmployeeService employeeService;
@@ -29,15 +31,12 @@ public class EmployeeController {
 
 
   @GetMapping("/employees")
-  public ResponseEntity<Map<String, Object>> getAllEmployees(
-    @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+  public ResponseEntity<Map<String, Object>> getAllEmployees(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
     return employeeService.getAllEmployees(page, size);
-
   }
 
   @GetMapping("/employees/firstName/{firstName}")
   public ResponseEntity<Employee> getEmployeeByFirstName(@PathVariable("firstName") String firstName) {
-
     return employeeService.getEmployeeByFirstName(firstName);
   }
 

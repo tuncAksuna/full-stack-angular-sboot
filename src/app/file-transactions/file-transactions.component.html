@@ -23,21 +23,38 @@
 
     <div class="alert alert-light" role="alert">{{ message }}</div>
 
-    <table class="table table-hover" style="margin-top: 50px;">
+    <mat-form-field>
+        <mat-label>Sort by</mat-label>
+        <mat-select>
+            <mat-option>
+                <button class="list-group-item list-group-item-action" (click)="getFileListOrderBySizeASC()">By file size (ASC)</button>
+            </mat-option>
+            <mat-option>
+                <button class="list-group-item list-group-item-action" (click)="getFileListOrderBySizeDESC()">By file size (DESC)</button>
+            </mat-option>
+            <mat-option>
+                <button class="list-group-item list-group-item-action" (click)="getFileListOrderByUploadedTimeASC()">Last uploaded time</button>
+            </mat-option>
+            <mat-option>
+                <button class="list-group-item list-group-item-action" (click)="getFileListOrderByUploadedTimeDESC()">First uploaded time</button>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <table class="table table-hover" style="margin-top: 15px;">
         <thead class="thead-light">
             <tr>
                 <th scope="col">FILE NAME</th>
-                <th scope="col">FILE TYPE</th>
                 <th scope="col">UPLOADED TIME</th>
-                <th scope="col">Download file</th>
+                <th scope="col" style="text-align: center;">Action</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let fileData of fileList">
                 <td>{{fileData.name}}</td>
-                <td>{{fileData.type}}</td>
                 <td>{{fileData.uploadedTime}}</td>
-                <td><a href="#" class="list-group-item list-group-item-action" (click)="downloadFile(fileData)">Download</a></td>
+                <td><button href="#" class="list-group-item list-group-item-action" (click)="downloadFile(fileData)">Download</button></td>
+
             </tr>
         </tbody>
     </table>

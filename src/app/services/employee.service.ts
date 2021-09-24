@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { Employee } from '../models/employee';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 /**
- * @author Cem Tunc AKSUNA - tuncOde
+ * @author Cem Tunc AKSUNA - tunCode
  */
 
 @Injectable({
@@ -19,42 +19,41 @@ export class EmployeeService {
   }
 
   getAllEmployee(params: any): Observable<any> {
-    return this.http.get(this._URL, { params });
+    return this.http.get(this._URL, { params })
+      .pipe(
+        catchError(this.handleError)
+      )
   }
 
   createEmployee(employee: Employee): Observable<Employee> {
     return this.http.post<Employee>(this._URL, employee)
       .pipe(
-        retry(3),
-        catchError(this.handleHttpResponse),
+        catchError(this.handleError),
       )
   }
 
   getEmployeeById(id: number): Observable<Employee> {
     return this.http.get<Employee>(`${this._URL}/${id}`)
       .pipe(
-        retry(3),
-        catchError(this.handleHttpResponse),
+        catchError(this.handleError),
       )
   }
 
   updateEmployee(id: number, employee: Employee): Observable<Employee> {
     return this.http.put<Employee>(this._URL + '/' + id, employee)
       .pipe(
-        retry(3),
-        catchError(this.handleHttpResponse),
+        catchError(this.handleError),
       )
   }
 
   deleteEmployee(id: number): Observable<Object> {
     return this.http.delete(this._URL + '/' + id)
       .pipe(
-        retry(3),
-        catchError(this.handleHttpResponse),
+        catchError(this.handleError),
       )
   }
 
-  handleHttpResponse(_httpError) {
+  handleError(_httpError) {
     let errorMessage: string = '';
 
     if (_httpError.status !== 200) {

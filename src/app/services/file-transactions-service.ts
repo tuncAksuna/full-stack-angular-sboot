@@ -2,7 +2,7 @@ import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { FileData } from 'src/app/models/filedata';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 /**
  * @author Cem Tunc AKSUNA - tuncOde
@@ -30,7 +30,6 @@ export class FileTransactionsService {
 
     return this.http.request(request)
       .pipe(
-        retry(3),
         catchError(this.handleError),
       )
   }
@@ -38,8 +37,35 @@ export class FileTransactionsService {
   listFiles(): Observable<FileData[]> {
     return this.http.get<FileData[]>(`${this._URLFile}/downloadAllFiles`)
       .pipe(
-        retry(3),
         catchError(this.handleError),
+      )
+  }
+
+  listFilesOrderBySizeDESC(): Observable<FileData[]> {
+    return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByDataDESC`)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  listFilesOrderBySizeASC(): Observable<FileData[]> {
+    return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByDataASC`)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  listFilesOrderByUploadedTimeASC(): Observable<FileData[]> {
+    return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByUploadedTimeASC`)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  listFilesOrderByUploadedTimeDESC(): Observable<FileData[]> {
+    return this.http.get<FileData[]>(`${this._URLFile}/downloadOrderByUploadedTimeDESC`)
+      .pipe(
+        catchError(this.handleError)
       )
   }
 
@@ -50,7 +76,6 @@ export class FileTransactionsService {
     }
     )
       .pipe(
-        retry(3),
         catchError(this.handleError),
       )
   }
@@ -58,7 +83,7 @@ export class FileTransactionsService {
   handleError(_httpError) {
     let errorMessage: string = '';
 
-    if(_httpError.status !== 200){
+    if (_httpError.status !== 200) {
       if (_httpError.error instanceof ErrorEvent) {
         errorMessage = `Error : ${_httpError.error.message}`
       } else {

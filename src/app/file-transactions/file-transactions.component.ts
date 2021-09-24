@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { saveAs } from 'file-saver';
 import { FileData } from 'src/app/models/filedata';
 import { FileTransactionsService } from '../services/file-transactions-service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-file-transactions',
@@ -60,9 +61,37 @@ export class FileTransactionsComponent implements OnInit {
   }
 
   uploadFiles(): void {
-    this.message = '';
     for (let i = 0; i < this.selectedFiles.length; i++) {
       this.upload(i, this.selectedFiles[i]);
+      this.message = 'File uploaded to the system'
     }
   }
+
+  //* ORDERING
+  getFileListOrderBySizeASC() {
+    this.fileService.listFilesOrderBySizeASC().subscribe(results => {
+      this.fileList = results;
+    })
+  }
+
+  getFileListOrderBySizeDESC() {
+    this.fileService.listFilesOrderBySizeDESC().subscribe(results => {
+      this.fileList = results;
+    })
+  }
+
+  getFileListOrderByUploadedTimeASC() {
+    this.fileService.listFilesOrderByUploadedTimeASC().subscribe(results => {
+      this.fileList = results;
+    })
+
+  }
+
+  getFileListOrderByUploadedTimeDESC() {
+    this.fileService.listFilesOrderByUploadedTimeDESC().subscribe(results => {
+      this.fileList = results;
+    })
+  }
+
+  //* ORDERING
 }

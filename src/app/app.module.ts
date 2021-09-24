@@ -11,14 +11,16 @@ import { EmployeeDetailsComponent } from './employee-details/employee-details.co
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FileTransactionsComponent } from './file-transactions/file-transactions.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EmployeeService } from './services/employee.service';
 import { FileTransactionsService } from './services/file-transactions-service';
+import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
+import { CommonModule } from '@angular/common';
+import { AngularMaterialModule } from './material.module';
+import { PaginationComponent } from './pagination/pagination.component';
+import { SortingComponent } from './sorting/sorting.component';
+
 
 
 @NgModule({
@@ -29,21 +31,21 @@ import { FileTransactionsService } from './services/file-transactions-service';
     EmployeeDetailsComponent,
     FileTransactionsComponent,
     EmployeeUpdateComponent,
+    ModalDialogComponent,
+    PaginationComponent,
+    SortingComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     Ng2SearchPipeModule,
     BrowserAnimationsModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
     NgxPaginationModule,
-
+    AngularMaterialModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [EmployeeService, FileTransactionsService],

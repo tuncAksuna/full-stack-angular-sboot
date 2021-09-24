@@ -14,4 +14,14 @@ public interface FileStorageService {
   FileDB storeFile(MultipartFile file) throws FileStorageException;
 
   Stream<FileDB> getAllFiles();
+
+  Stream<FileDB> getAllFilesOrderBySizeASC();
+
+  Stream<FileDB> getAllFilesOrderBySizeDESC();
+
+  Stream<FileDB> getAllFilesOrderByUploadedTimeASC();
+
+  Stream<FileDB> getAllFilesOrderByUploadedTimeDESC();
+
+
 }

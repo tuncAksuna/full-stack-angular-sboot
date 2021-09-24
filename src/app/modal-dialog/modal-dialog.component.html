@@ -1,0 +1,26 @@
+<div class="container" *ngIf="activeModalComponent">
+    <h3>Employee informations</h3>
+    <table class="table">
+        <thead class=thead-light>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Last name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="badge badge-info">{{employeeId}}</span></td>
+                <td>{{employeeName}}</td>
+                <td>{{employeeLastName}}</td>
+                <td>{{employeeEmail}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <div>
+        <textarea name="message-text-area" rows="3" cols="50" #message> Message about {{employeeName}}.. </textarea>
+        <button class="btn btn-primary btn-sm" id="sendButton">Send</button>
+    </div>
+</div>

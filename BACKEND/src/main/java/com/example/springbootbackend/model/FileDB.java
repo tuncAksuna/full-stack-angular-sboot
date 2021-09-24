@@ -1,14 +1,19 @@
 package com.example.springbootbackend.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "file")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class FileDB {
 
   @Id
@@ -21,10 +26,6 @@ public class FileDB {
   private byte[] data;
   private String uploadedTime;
 
-  public FileDB() {
-
-  }
-
   public FileDB(String name, String type, byte[] data, String uploadedTime) {
     this.name = name;
     this.type = type;
@@ -32,43 +33,4 @@ public class FileDB {
     this.uploadedTime = uploadedTime;
   }
 
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public byte[] getData() {
-    return data;
-  }
-
-  public void setData(byte[] data) {
-    this.data = data;
-  }
-
-  public String getUploadedTime() {
-    return uploadedTime;
-  }
-
-  public void setUploadedTime(String uploadedTime) {
-    this.uploadedTime = uploadedTime;
-  }
 }
