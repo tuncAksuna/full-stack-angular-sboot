@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(value = "/api/transactions")
-@CrossOrigin
+@CrossOrigin(value = "*")
 public class FileStorageController {
 
   private final FileStorageService fileStorageService;

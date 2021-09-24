@@ -2,6 +2,7 @@ package com.example.springbootbackend.controller;
 
 import com.example.springbootbackend.model.Employee;
 import com.example.springbootbackend.service.EmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/v1/")
-@CrossOrigin
+@CrossOrigin(value = "*")
+@Slf4j
 public class EmployeeController {
 
   private final EmployeeService employeeService;

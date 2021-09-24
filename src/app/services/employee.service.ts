@@ -5,7 +5,7 @@ import { Employee } from '../models/employee';
 import { catchError } from 'rxjs/operators';
 
 /**
- * @author Cem Tunc AKSUNA - tuncOde
+ * @author Cem Tunc AKSUNA - tunCode
  */
 
 @Injectable({

@@ -1,13 +1,20 @@
 package com.example.springbootbackend.model;
 
 import com.example.springbootbackend.config.validation.UniqueEmail;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "employees")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class Employee {
 
   @Id
@@ -41,67 +48,4 @@ public class Employee {
     this.isUpdated = isUpdated;
   }
 
-  public Employee() {
-  }
-
-
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  public String getEmailID() {
-    return emailID;
-  }
-
-  public void setEmailID(String emailID) {
-    this.emailID = emailID;
-  }
-
-  public String getCreatedTime() {
-    return createdTime;
-  }
-
-  public void setCreatedTime(String createdTime) {
-    this.createdTime = createdTime;
-  }
-
-  public boolean isUpdated() {
-    return isUpdated;
-  }
-
-  public void setUpdated(boolean updated) {
-    isUpdated = updated;
-  }
-
-  @Override
-  public String toString() {
-    return "Employee{" +
-      "id=" + id +
-      ", firstName='" + firstName + '\'' +
-      ", lastName='" + lastName + '\'' +
-      ", emailID='" + emailID + '\'' +
-      ", createdTime='" + createdTime + '\'' +
-      ", isUpdated=" + isUpdated +
-      '}';
-  }
 }

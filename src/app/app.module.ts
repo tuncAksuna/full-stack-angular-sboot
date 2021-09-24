@@ -18,6 +18,8 @@ import { FileTransactionsService } from './services/file-transactions-service';
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 import { CommonModule } from '@angular/common';
 import { AngularMaterialModule } from './material.module';
+import { PaginationComponent } from './pagination/pagination.component';
+import { SortingComponent } from './sorting/sorting.component';
 
 
 
@@ -30,7 +32,8 @@ import { AngularMaterialModule } from './material.module';
     FileTransactionsComponent,
     EmployeeUpdateComponent,
     ModalDialogComponent,
-  
+    PaginationComponent,
+    SortingComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,6 @@ import { AngularMaterialModule } from './material.module';
     BrowserAnimationsModule,
     NgxPaginationModule,
     AngularMaterialModule
-
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [EmployeeService, FileTransactionsService],
