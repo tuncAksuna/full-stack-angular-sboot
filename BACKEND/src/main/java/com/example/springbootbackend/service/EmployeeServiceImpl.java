@@ -58,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
       response.put("totalItems", pageTuts.getTotalElements());
       response.put("totalPages", pageTuts.getTotalPages());
 
-      log.trace("Executing getAllEmployees ,page : [{}], size [{}] ", page, size);
+      log.trace("Executing getAllEmployees ,page : [{}], size : [{}] ", page, size);
       return new ResponseEntity<>(response, HttpStatus.OK);
 
     } catch (Exception ex) {

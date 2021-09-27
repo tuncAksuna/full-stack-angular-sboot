@@ -3,6 +3,7 @@ package com.example.springbootbackend.service;
 import com.example.springbootbackend.config.exception.FileStorageException;
 import com.example.springbootbackend.model.FileDB;
 import com.example.springbootbackend.repository.FileRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
 @Service
+@Slf4j
 public class FileStorageServiceImpl implements FileStorageService {
 
   // TODO : KULLANICI BİR TEXT AREA'YA TEXT YAZSIN VE DOSYAYI BUTONA TIKLAYINCA .TXT OLARAK BİLGİSAYARINA İNDİREBİLSİN.
@@ -30,30 +32,36 @@ public class FileStorageServiceImpl implements FileStorageService {
   }
 
   public FileDB downloadFileById(String fileId) throws FileNotFoundException {
+    log.trace("Executing downloadFileById , fileId [{}]", fileId);
     return fileRepository.findById(fileId).orElseThrow(() ->
       new FileNotFoundException(FILE_NOT_FOUND_EXCEPTION + fileId));
   }
 
   public Stream<FileDB> getAllFiles() {
+    log.trace("Executing getAllFiles");
     return fileRepository.findAll().stream();
   }
 
   public Stream<FileDB> getAllFilesOrderBySizeASC() {
+    log.trace("Executing getAllFilesOrderBySizeASC");
     return fileRepository.findAll(Sort.by("data").ascending()).stream();
   }
 
   @Override
   public Stream<FileDB> getAllFilesOrderBySizeDESC() {
+    log.trace("Executing getAllFilesOrderBySizeDESC");
     return fileRepository.findAll(Sort.by("data").descending()).stream();
   }
 
   @Override
   public Stream<FileDB> getAllFilesOrderByUploadedTimeASC() {
+    log.trace("Executing getAllFilesOrderByUploadedTimeASC");
     return fileRepository.findAll(Sort.by("uploadedTime").ascending()).stream();
   }
 
   @Override
   public Stream<FileDB> getAllFilesOrderByUploadedTimeDESC() {
+    log.trace("Executing getAllFilesOrderByUploadedTimeDESC");
     return fileRepository.findAll(Sort.by("uploadedTime").descending()).stream();
   }
 
@@ -69,8 +77,10 @@ public class FileStorageServiceImpl implements FileStorageService {
         throw new FileStorageException("Sorry ! File name contains invalid path sequence or your file is null: " + fileName);
       }
       FileDB fileDB = new FileDB(fileName, file.getContentType(), file.getBytes(), dtf.format(now));
+      log.trace("Executing storeFile, file [{}]", file);
       return fileRepository.save(fileDB);
     } catch (IOException ex) {
+      log.warn("Not executed storeFile, may be file doesn't contain .xls or .xlsx extension or fileName is empty,file [{}]", file);
       throw new FileStorageException(FILE_STORAGE_COULDNT_STORE_EXCEPTION + fileName + "Please try again", ex);
     }
   }
