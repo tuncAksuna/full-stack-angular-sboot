@@ -12,3 +12,8 @@ table tbody tr td :hover {
 mat-form-field {
     width: 220px;
 }
+
+#ngx-paginator {
+    display: flex;
+    justify-content: flex-end;
+}

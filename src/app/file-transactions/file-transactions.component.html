@@ -50,12 +50,23 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let fileData of fileList">
+            <tr *ngFor="let fileData of fileList | paginate:{itemsPerPage:pageSizeOptions,currentPage:page,totalItems:count}; let i = index ">
                 <td>{{fileData.name}}</td>
                 <td>{{fileData.uploadedTime}}</td>
                 <td><button href="#" class="list-group-item list-group-item-action" (click)="downloadFile(fileData)">Download</button></td>
-
             </tr>
         </tbody>
     </table>
+    <hr>
+    <div id="ngx-paginator">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" responsive="true" (pageChange)="handlePageChange($event)"></pagination-controls>
+    </div>
+    <div style="display:flex; justify-content: flex-end;">
+        <em>Items per page  </em>
+        <select style="margin:0 0 0 10px;" (change)="handlePageSizeChange($event)">
+        <option *ngFor="let size of pageSizeOptions" [ngValue]="size">
+             {{size}}
+        </option>
+    </select>
+    </div>
 </div>

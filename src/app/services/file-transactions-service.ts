@@ -34,8 +34,8 @@ export class FileTransactionsService {
       )
   }
 
-  listFiles(): Observable<FileData[]> {
-    return this.http.get<FileData[]>(`${this._URLFile}/downloadAllFiles`)
+  listFiles(params: any): Observable<any> {
+    return this.http.get(`${this._URLFile}/downloadAllFiles`, { params })
       .pipe(
         catchError(this.handleError),
       )
