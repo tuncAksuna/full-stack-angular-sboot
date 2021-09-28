@@ -77,10 +77,10 @@ public class FileStorageServiceImpl implements FileStorageService {
         throw new FileStorageException("Sorry ! File name contains invalid path sequence or your file is null: " + fileName);
       }
       FileDB fileDB = new FileDB(fileName, file.getContentType(), file.getBytes(), dtf.format(now));
-      log.trace("Executing storeFile, file [{}]", file);
+      log.trace("Executing storeFile, file [{}]", file.getName());
       return fileRepository.save(fileDB);
     } catch (IOException ex) {
-      log.warn("Not executed storeFile, may be file doesn't contain .xls or .xlsx extension or fileName is empty,file [{}]", file);
+      log.warn("Not executed storeFile, may be file doesn't contain .xls or .xlsx extension or fileName is empty,file [{}]", file.getName());
       throw new FileStorageException(FILE_STORAGE_COULDNT_STORE_EXCEPTION + fileName + "Please try again", ex);
     }
   }

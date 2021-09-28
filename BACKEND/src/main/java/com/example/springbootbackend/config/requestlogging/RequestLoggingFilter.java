@@ -13,7 +13,7 @@ public class RequestLoggingFilter {
     filter.setIncludeQueryString(true);
     filter.setIncludePayload(true);
     filter.setMaxPayloadLength(10000);
-    filter.setIncludeHeaders(true);
+    filter.setIncludeHeaders(false);
     filter.setBeforeMessagePrefix("BEFORE REQUEST DATA : ");
     filter.setAfterMessagePrefix("AFTER REQUEST DATA : ");
     return filter;
