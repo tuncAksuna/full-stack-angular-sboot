@@ -26,10 +26,12 @@ public class EmployeeServiceImpl implements EmployeeService {
   private final static String EMPLOYEE_NOT_FOUND_BY_FIRST_NAME = "First name not found in the database";
 
   private final EmployeeRepository employeeRepository;
+  private EmailSenderService senderService;
 
   @Autowired
-  public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+  public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmailSenderService senderService) {
     this.employeeRepository = employeeRepository;
+    this.senderService = senderService;
   }
 
   public ResponseEntity<Employee> firstNameSearching(String firstName) {
@@ -117,15 +119,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   public ResponseEntity<Object> deleteEmployee(Long id) {
 
+    // TODO : ADD EMPLOYEE INFO(id,name etc.) INTO THE SENT E-MAİL, WHEN DELETED EMPLOYEE
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
       new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
     employeeRepository.delete(employee);
+    senderService.sendEmail(
+      "aksuna.tunc@gmail.com",
+      "DELETE Operation - EMPLOYEE MANAGEMENT SYSTEM",
+      "Employee has been deleted successfully from the system",
+      new Date()
+    );
 
     log.trace("Executing deleteEmployee ,employeeId : [{}]", id);
     return ResponseEntity.ok("Employee successfully deleted");
   }
-
 
 }
 

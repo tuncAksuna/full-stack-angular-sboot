@@ -1,4 +1,4 @@
-package com.example.springbootbackend;
+package com.example.springbootbackend.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,10 @@ public class EmailSenderService {
     mailMessage.setSentDate(sentTime);
 
     try {
-      log.trace("THE MAIL SUCCESSFULLY SENT TO [{}]", toEmail);
+      log.trace("The mail succesfuuly sent to [{}]", toEmail);
       mailSender.send(mailMessage);
     } catch (MailException ex) {
-      log.warn("THE MAIL HAS NOT BEEN SENT TO [{}], sent time : [{}]", toEmail, sentTime);
+      log.warn("The mail has not been sent to [{}], sent time : [{}]", toEmail, sentTime);
       System.out.println(ex.getMessage());
     }
   }
