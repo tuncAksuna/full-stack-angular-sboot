@@ -8,8 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
+
 @SpringBootApplication
-public class SpringbootBackendApplication  {
+public class SpringbootBackendApplication {
 
   private static final Logger logger = LoggerFactory.getLogger(SpringbootBackendApplication.class);
 
@@ -23,8 +26,13 @@ public class SpringbootBackendApplication  {
 
   @EventListener(ApplicationReadyEvent.class)
   public void sendEmail() {
-    logger.info("The mail is being sent");
-    senderService.sendEmail("aksuna.tunc@gmail.com", "KİLİS PROJESİ ÜZERİNE", "This is body of mail");
-  }
+    long milis = System.currentTimeMillis();
+    Date sentMessageData = new Date(milis);
 
+    senderService.sendEmail(
+      "aksuna.tunc@gmail.com",
+      "Subject of sent email,SMTP Implementation for Employee Management System",
+      "This is a SMTP implementation for my special app, Employee Management System, also this is body of the sent message",
+      sentMessageData);
+  }
 }
