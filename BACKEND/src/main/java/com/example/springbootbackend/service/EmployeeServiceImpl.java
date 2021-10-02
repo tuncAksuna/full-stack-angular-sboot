@@ -102,6 +102,8 @@ public class EmployeeServiceImpl implements EmployeeService {
   }
 
   public ResponseEntity<Employee> updateEmployee(Long id, Employee employeeDetails) {
+
+    // TODO : STORE OLD DATA. WHEN THE USER WANTS TO SEE OLD DATA OF EMPLOYEE, SHOW IT OLD DATA.
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
       new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
@@ -119,7 +121,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   public ResponseEntity<Object> deleteEmployee(Long id) {
 
-    // TODO : ADD EMPLOYEE INFO(id,name etc.) INTO THE SENT E-MAİL, WHEN DELETED EMPLOYEE
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
       new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
@@ -127,7 +128,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     senderService.sendEmail(
       "aksuna.tunc@gmail.com",
       "DELETE Operation - EMPLOYEE MANAGEMENT SYSTEM",
-      "Employee has been deleted successfully from the system",
+      employee.getFirstName() + " " + employee.getLastName()+ " has been deleted successfully from the system." + " ID : " + employee.getId(),
       new Date()
     );
 

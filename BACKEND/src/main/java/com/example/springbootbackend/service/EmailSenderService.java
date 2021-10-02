@@ -27,7 +27,7 @@ public class EmailSenderService {
     mailMessage.setSentDate(sentTime);
 
     try {
-      log.trace("The mail succesfuuly sent to [{}]", toEmail);
+      log.trace("The mail succesfully sent to [{}]", toEmail);
       mailSender.send(mailMessage);
     } catch (MailException ex) {
       log.warn("The mail has not been sent to [{}], sent time : [{}]", toEmail, sentTime);
