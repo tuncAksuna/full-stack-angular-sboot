@@ -1,0 +1,4 @@
+When the user clicks to DELETE button , show pop up ( are you sure ? etc. )
+Store deleted employees in a file and add some informations about deleted employee( date the user was deleted , why deleted ? , requested himself , why did he/she request)
+When will the user deleted ?
+associate files with users
