@@ -20,9 +20,7 @@ export class EmployeeCreateComponent implements OnInit {
   employee: Employee = new Employee();
 
   onSubmit() {
-    console.log(this.employee);
     this.createUserInfos.reset();   // to clean input
-
   }
 
   // reactive form -- 
@@ -30,11 +28,13 @@ export class EmployeeCreateComponent implements OnInit {
     firstName: new FormControl('',
       [
         Validators.required,
+        Validators.minLength(3),
         Validators.maxLength(13),
       ]),
     lastName: new FormControl('',
       [
         Validators.required,
+        Validators.minLength(3),
         Validators.maxLength(20),
       ]
     ),
@@ -60,17 +60,21 @@ export class EmployeeCreateComponent implements OnInit {
   // -- reactive form
 
   // -- route..
-  goToEmployeeList() {
-    this.router.navigate(["/employees"]);
-    this.saveEmployee();
+  refreshThePage() {
+    this.router.navigateByUrl("/create-employee", {
+      skipLocationChange: true
+    }).then(() => {
+      this.router.navigate(["/create-employee"])
+    });
   }
 
   saveEmployee() {
     this.employeeService.createEmployee(this.employee)
       .subscribe(data => {
         console.log(data);
+        this.refreshThePage();
       },
-        error => window.alert(error)
+        error => console.error(error)
       )
   }
 

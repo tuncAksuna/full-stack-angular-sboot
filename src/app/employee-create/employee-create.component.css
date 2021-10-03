@@ -10,7 +10,7 @@
     display: inline-block;
     opacity: 0.8;
     padding: 1px;
-    transition: opacity 200ms, padding 300ms;
+    transition: opacity 200ms, padding 250ms;
 }
 
 #emailIcon:hover {

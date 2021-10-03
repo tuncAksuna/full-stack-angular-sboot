@@ -26,12 +26,12 @@ public class EmployeeServiceImpl implements EmployeeService {
   private final static String EMPLOYEE_NOT_FOUND_BY_FIRST_NAME = "First name not found in the database";
 
   private final EmployeeRepository employeeRepository;
-  private EmailSenderService senderService;
+  private final EmailSenderService emailSenderService;
 
   @Autowired
   public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmailSenderService senderService) {
     this.employeeRepository = employeeRepository;
-    this.senderService = senderService;
+    this.emailSenderService = senderService;
   }
 
   public ResponseEntity<Employee> firstNameSearching(String firstName) {
@@ -92,7 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     LocalDateTime now = LocalDateTime.now();
 
     if (employeeOptional.isPresent()) {
-      log.warn("[{}] already created , created time [{}] not executed createEmployee ", employee, employee.getCreatedTime());
+      log.warn("[{}] [{}} already created , created time [{}], not executed createEmployee ", employee.getFirstName(), employee.getLastName(), employee.getCreatedTime());
       throw new EmployeeAlreadyExistException(EMPLOYEE_ALREADY_EXISTS);
     }
     Employee saveEmployee = new Employee(employee.getFirstName(), employee.getLastName(), employee.getEmailID(), dtf.format(now), employee.isUpdated());
@@ -103,7 +103,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   public ResponseEntity<Employee> updateEmployee(Long id, Employee employeeDetails) {
 
-    // TODO : STORE OLD DATA. WHEN THE USER WANTS TO SEE OLD DATA OF EMPLOYEE, SHOW IT OLD DATA.
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
       new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
@@ -113,6 +112,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     employee.setUpdated(true);
 
     Employee updatedEmployee = employeeRepository.save(employee);
+
+    emailSenderService.sendEmail(
+      employee.getEmailID(),
+      "UPDATE OPERATION - EMPLOYEE MANAGEMENT SYSTEM",
+      "Your information has been updated by your administrator !",
+      new Date()
+    );
 
     log.trace("Executing updateEmployee, employeeId : [{}], employee : [{}]", id, employeeDetails);
     return ResponseEntity.status(HttpStatus.OK).body(updatedEmployee);
@@ -125,10 +131,11 @@ public class EmployeeServiceImpl implements EmployeeService {
       new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
     employeeRepository.delete(employee);
-    senderService.sendEmail(
+
+    emailSenderService.sendEmail(
       "aksuna.tunc@gmail.com",
       "DELETE Operation - EMPLOYEE MANAGEMENT SYSTEM",
-      employee.getFirstName() + " " + employee.getLastName()+ " has been deleted successfully from the system." + " ID : " + employee.getId(),
+      employee.getFirstName() + " " + employee.getLastName() + " has been deleted successfully from the system." + " ID : " + employee.getId(),
       new Date()
     );
 
