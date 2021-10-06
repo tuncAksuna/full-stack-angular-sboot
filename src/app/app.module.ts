@@ -19,6 +19,7 @@ import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 import { CommonModule } from '@angular/common';
 import { AngularMaterialModule } from './material.module';
 import { PaginationComponent } from './pagination/pagination.component';
+import { OpenDialogComponent } from './open-dialog/open-dialog.component';
 
 
 
@@ -32,6 +33,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     EmployeeUpdateComponent,
     ModalDialogComponent,
     PaginationComponent,
+    OpenDialogComponent,
   ],
   imports: [
     BrowserModule,

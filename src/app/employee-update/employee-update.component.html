@@ -30,7 +30,7 @@
             <div class="alert alert-danger" *ngIf="emailID.touched && emailID.errors?.email"> Please , Write in e-mail format (example : tuncAksuna@..com)
             </div>
         </div>
-
+        <p class="lead">Updated employee informations <em>'is emailed to the system administrator'</em> so this may take time !</p>
         <button [disabled]="updateEmployeeInfo.invalid" (click)="updatedEmployee()" class="btn btn-primary btn-sm" type="submit">Update employee</button>
     </form>
 </div>

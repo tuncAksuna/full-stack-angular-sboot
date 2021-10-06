@@ -114,13 +114,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     Employee updatedEmployee = employeeRepository.save(employee);
 
     emailSenderService.sendEmail(
-      employee.getEmailID(),
+      "aksuna.tunc@gmail.com",
       "UPDATE OPERATION - EMPLOYEE MANAGEMENT SYSTEM",
       "Your information has been updated by your administrator !",
       new Date()
     );
 
-    log.trace("Executing updateEmployee, employeeId : [{}], employee : [{}]", id, employeeDetails);
+    log.trace("Executing updateEmployee, employeeId : [{}], employee : [{}] and sent mail successfully" , id, employeeDetails);
     return ResponseEntity.status(HttpStatus.OK).body(updatedEmployee);
 
   }
