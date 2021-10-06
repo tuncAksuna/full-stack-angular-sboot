@@ -59,7 +59,6 @@ export class EmployeeCreateComponent implements OnInit {
   }
   // -- reactive form
 
-  // -- route..
   refreshThePage() {
     this.router.navigateByUrl("/create-employee", {
       skipLocationChange: true
