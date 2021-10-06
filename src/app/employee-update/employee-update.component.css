@@ -1,4 +1,4 @@
-.form-control.ng-invalid.ng-touched {
+.form-control.ng-pristine.ng-invalid.ng-touched {
     border-left: 4px solid #a94442;
 }
 

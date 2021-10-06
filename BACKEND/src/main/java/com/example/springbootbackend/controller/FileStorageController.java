@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -41,31 +42,6 @@ public class FileStorageController {
       .body(new ByteArrayResource(fileDB.getData()));
   }
 
-  @GetMapping("/files/downloadAllFiles")
-  public Stream<FileDB> getAllFiles() {
-    return fileStorageService.getAllFiles();
-  }
-
-  @GetMapping("files/downloadOrderByDataASC")
-  public Stream<FileDB> getAllFilesOrderBySizeASC() {
-    return fileStorageService.getAllFilesOrderBySizeASC();
-  }
-
-  @GetMapping("files/downloadOrderByDataDESC")
-  public Stream<FileDB> getAllFilesOrderBySizeDESC() {
-    return fileStorageService.getAllFilesOrderBySizeDESC();
-  }
-
-  @GetMapping("files/downloadOrderByUploadedTimeASC")
-  public Stream<FileDB> getAllFilesOrderByUploadedTimeASC(){
-    return fileStorageService.getAllFilesOrderByUploadedTimeASC();
-  }
-
-  @GetMapping("files/downloadOrderByUploadedTimeDESC")
-  public Stream<FileDB> getAllFilesOrderByUploadedTimeDESC(){
-    return fileStorageService.getAllFilesOrderByUploadedTimeDESC();
-  }
-
   @PostMapping("/files/upload")
   public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
     FileDB fileDB = fileStorageService.storeFile(file);
@@ -85,5 +61,31 @@ public class FileStorageController {
       .map(file -> uploadFile(file))
       .collect(Collectors.toList());
   }
+
+  @GetMapping("/files/downloadAllFiles")
+  public ResponseEntity<Map<String, Object>> getAllFiles(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+    return fileStorageService.getAllFiles(page, size);
+  }
+
+  @GetMapping("files/downloadOrderByDataASC")
+  public Stream<FileDB> getAllFilesOrderBySizeASC() {
+    return fileStorageService.getAllFilesOrderBySizeASC();
+  }
+
+  @GetMapping("files/downloadOrderByDataDESC")
+  public Stream<FileDB> getAllFilesOrderBySizeDESC() {
+    return fileStorageService.getAllFilesOrderBySizeDESC();
+  }
+
+  @GetMapping("files/downloadOrderByUploadedTimeASC")
+  public Stream<FileDB> getAllFilesOrderByUploadedTimeASC() {
+    return fileStorageService.getAllFilesOrderByUploadedTimeASC();
+  }
+
+  @GetMapping("files/downloadOrderByUploadedTimeDESC")
+  public Stream<FileDB> getAllFilesOrderByUploadedTimeDESC() {
+    return fileStorageService.getAllFilesOrderByUploadedTimeDESC();
+  }
+
 }
 

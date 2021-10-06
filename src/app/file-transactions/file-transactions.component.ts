@@ -22,12 +22,18 @@ export class FileTransactionsComponent implements OnInit {
   fileInfos: Observable<any>;
   fileList?: FileData[];
 
+  page: number = 1;
+  count: number = 0;
+  pageSize: number = 5;
+  pageSizeOptions: number[] = [5, 10, 15, 20];
+
   ngOnInit(): void {
-    this.getFileList();
+    this.getAll();
   }
 
   getFileList(): void {
-    this.fileService.listFiles().subscribe(results => {
+    const params = this.getRequestParam(this.page, this.pageSize);
+    this.fileService.listFiles(params).subscribe(results => {
       this.fileList = results;
     })
   }
@@ -94,4 +100,42 @@ export class FileTransactionsComponent implements OnInit {
   }
 
   //* ORDERING
+
+  getAll(): void {
+    const params = this.getRequestParam(this.page, this.pageSize);
+
+    this.fileService.listFiles(params).subscribe(response => {
+      const { files, totalItems } = response;
+      this.fileList = files;
+      this.count = totalItems;
+    },
+      error => {
+        console.warn("Pagination error in file-operations page : ", error)
+      })
+  }
+
+  getRequestParam(page, pageSize): any {
+    let params = {};
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+
+  handlePageChange(event): void {
+    this.page = event;
+    this.getAll();
+  }
+
+  handlePageSizeChange(event): void {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.getAll();
+  }
 }
