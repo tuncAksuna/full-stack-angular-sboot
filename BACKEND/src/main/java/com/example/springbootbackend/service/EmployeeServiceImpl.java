@@ -116,7 +116,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     emailSenderService.sendEmail(
       "aksuna.tunc@gmail.com",
       "UPDATE OPERATION - EMPLOYEE MANAGEMENT SYSTEM",
-      "Your information has been updated by your administrator !",
+      employee.getFirstName() + " " +  "has been successfully updated  !",
       new Date()
     );
 
@@ -135,7 +135,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     emailSenderService.sendEmail(
       "aksuna.tunc@gmail.com",
       "DELETE Operation - EMPLOYEE MANAGEMENT SYSTEM",
-      employee.getFirstName() + " " + employee.getLastName() + " has been deleted successfully from the system." + " ID : " + employee.getId(),
+      employee.getFirstName() + " " + employee.getLastName() + " has been successfully deleted from the system." + " ID : " + employee.getId(),
       new Date()
     );
 
