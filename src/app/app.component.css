@@ -1,12 +1,18 @@
 #icons {
     font-size: 30px;
-    transition: font-size 250ms;
-}
-
-#icons:hover {
-    font-size: 20px;
 }
 
 #icons a {
     color: whitesmoke;
+}
+
+.footer {
+    position: fixed;
+    z-index: 999;
+    height: 8rem;
+    bottom: 0;
+    width: 100%;
+    color: whitesmoke;
+    background-color: #007BFF;
+    text-align: center;
 }
