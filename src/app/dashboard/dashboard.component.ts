@@ -27,21 +27,12 @@ export class DashboardComponent implements OnInit {
         .map(data => data.main.temp_min);
 
       let dates = data['list']
-        .map(data => data.dt)
-
-      let weatherDates = [];
-      dates.forEach(el => {
-        let jsDate = new Date(el * 1000);
-        weatherDates.push(jsDate.toLocaleTimeString('en'), {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        })
-      });
+        .map(data => data.dt_txt)
 
       this.tempMax = tempMax;
       this.tempMin = tempMin;
-      this.dates = weatherDates;
+      this.dates = dates;
+      console.log(data['list'].map(data => data.dt_txt));
 
       this.drawChart();
     });
