@@ -20,6 +20,8 @@ import { CommonModule } from '@angular/common';
 import { AngularMaterialModule } from './material.module';
 import { PaginationComponent } from './pagination/pagination.component';
 import { OpenDialogComponent } from './open-dialog/open-dialog.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardService } from './services/dashboard.service';
 
 
 
@@ -34,6 +36,7 @@ import { OpenDialogComponent } from './open-dialog/open-dialog.component';
     ModalDialogComponent,
     PaginationComponent,
     OpenDialogComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,10 @@ import { OpenDialogComponent } from './open-dialog/open-dialog.component';
     AngularMaterialModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [EmployeeService, FileTransactionsService],
+  providers: [
+    EmployeeService,
+    FileTransactionsService,
+    DashboardService],
   bootstrap: [AppComponent]
 })
 

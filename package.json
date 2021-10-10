@@ -23,6 +23,7 @@
         "@angular/router": "~10.1.5",
         "bootstrap": "^4.6.0",
         "bootstrap-icons": "^1.4.1",
+        "chart.js": "^3.5.1",
         "file-saver": "^2.0.5",
         "file-saver-es": "^2.0.5",
         "font-awesome": "^4.7.0",
