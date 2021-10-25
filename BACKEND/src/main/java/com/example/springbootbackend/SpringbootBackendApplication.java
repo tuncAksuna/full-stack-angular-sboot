@@ -9,10 +9,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Date;
 
 @SpringBootApplication
+@EnableSwagger2
 public class SpringbootBackendApplication {
 
   private static final Logger logger = LoggerFactory.getLogger(SpringbootBackendApplication.class);
