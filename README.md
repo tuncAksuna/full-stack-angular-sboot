@@ -24,6 +24,11 @@ You can see all the employee's information on this page (start date of work , is
 
 ![updating](https://user-images.githubusercontent.com/65118839/125841934-a0209a94-4102-4e62-87bd-31cc8ae54533.PNG)
 
+## SWAGGER UI SUPPORT 
+![swagger](https://user-images.githubusercontent.com/65118839/138762226-20a0af93-feef-4857-8875-865596da86e3.PNG)
+![swagger2 (2)](https://user-images.githubusercontent.com/65118839/138762220-d10d2234-4d11-492f-80ee-1b27af20ba4a.PNG)
+
+
 
 ## Development server
 
