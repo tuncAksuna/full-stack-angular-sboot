@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ![image](https://user-images.githubusercontent.com/65118839/132125275-b9b03d05-1a45-4828-8fe9-654ad641b957.png)
 
-## File Transactions Page
+## File Operations Page
 You can upload or download files (only .xlsx) from this page and files stored in the database.
 
 ![image](https://user-images.githubusercontent.com/65118839/132125332-7bc4e14b-d05f-4a7a-9e24-a046258433b1.png)
