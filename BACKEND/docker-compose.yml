@@ -1,20 +1,30 @@
-version: "3.4"
+version: "3.8"
 services:
-  api_service:
-    build: .
-    restart: always
-    ports:
-      - 8080:8080
-    depends_on:
-      - mysql_db
   mysql_db:
     image: mysql:5.7
-    restart: always
     ports:
-      - 3307:3306
+      - 3307:3006
+    restart: unless-stopped
     environment:
-      MYSQL_DATABASE: employee_management_system
-      MYSQL_USER: root
-      MYSQL_RANDOM_PASSWORD: "1"
+      MYSQL_ROOT_PASSWORD: M.orkazak2323.
       MYSQL_PASSWORD: M.orkazak2323.
+  app:
+    depends_on:
+      - mysql_db
+    build: .
+    ports:
+      - 8081:8080
+    restart: on-failure
+    stdin_open: true
+    tty: true
+    environment:
+      SPRING_APPLICATION_JSON: '{
+            "spring.datasource.url"  : "jdbc:mysql://mysql_db:3306/employee_management_system?allowPublicKeyRetrieval=true&useSSL=false",
+            "spring.datasource.username" : "root",
+            "spring.datasource.password" : "M.orkazak2323.",
+            "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+            "spring.jpa.hibernate.ddl-auto" : "update",
+            "spring.datasource.initializaton-mode" : "always",
+          }'
+
 
