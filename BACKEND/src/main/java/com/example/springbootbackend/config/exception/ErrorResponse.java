@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.ZonedDateTime;
 
+// Information of the error to be returned..
+
 public class ErrorResponse {
 
     private final String message;

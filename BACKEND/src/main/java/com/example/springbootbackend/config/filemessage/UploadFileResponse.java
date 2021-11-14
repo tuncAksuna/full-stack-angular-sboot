@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+// Implemented to return the information of the file uploaded to the system
+
 @Getter
 @Setter
 @AllArgsConstructor

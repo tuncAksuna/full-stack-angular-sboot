@@ -1,8 +1,9 @@
-package com.example.springbootbackend.service;
+package com.example.springbootbackend.service.implemantations;
 
 import com.example.springbootbackend.config.exception.FileStorageException;
 import com.example.springbootbackend.model.FileDB;
 import com.example.springbootbackend.repository.FileRepository;
+import com.example.springbootbackend.service.FileStorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

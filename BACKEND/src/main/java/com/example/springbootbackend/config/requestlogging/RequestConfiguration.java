@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+// Applied to understand , interpret and clarify incoming request.
+
 public class RequestConfiguration implements WebMvcConfigurer {
 
   private final RequestInterceptor employeeRequestInterceptor;
