@@ -4,7 +4,6 @@ import com.example.springbootbackend.config.exception.EmployeeAlreadyExistExcept
 import com.example.springbootbackend.config.exception.EmployeeNotFoundException;
 import com.example.springbootbackend.model.Employee;
 import com.example.springbootbackend.repository.EmployeeRepository;
-import com.example.springbootbackend.service.EmailSenderService;
 import com.example.springbootbackend.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
       return new ResponseEntity<>(response, HttpStatus.OK);
 
     } catch (Exception ex) {
-      log.warn("Not executed getAllEmployees {}", page, ex);
+      log.warn("Not executed getAllEmployees [{}]", page, ex);
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }

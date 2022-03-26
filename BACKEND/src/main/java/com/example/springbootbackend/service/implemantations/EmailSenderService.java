@@ -1,4 +1,4 @@
-package com.example.springbootbackend.service;
+package com.example.springbootbackend.service.implemantations;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class EmailSenderService {
       mimeHelper.setSubject(subjectOfMail);
       mimeHelper.setSentDate(sentTime);
 
-      FileSystemResource file = new FileSystemResource("C:\\Users\\netadmin\\Desktop\\SPRING and JAVA\\PROJELER\\full-stack-app\\BACKEND\\src\\main\\java\\assets\\employee-deleted.png");
+      FileSystemResource file = new FileSystemResource("C:\\Users\\netadmin\\Desktop\\Software Notes\\SPRING and JAVA\\PROJELER\\full-stack-app\\BACKEND\\src\\main\\java\\assets\\employee-deleted.png");
       mimeHelper.addAttachment(file.getFilename(), file);
       log.trace("The mail succesfully sent to [{}]", toEmail);
       mailSender.send(mimeMessage);
