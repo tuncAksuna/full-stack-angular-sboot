@@ -4,7 +4,7 @@ import com.example.springbootbackend.config.exception.EmployeeAlreadyExistExcept
 import com.example.springbootbackend.config.exception.EmployeeNotFoundException;
 import com.example.springbootbackend.model.Employee;
 import com.example.springbootbackend.repository.EmployeeRepository;
-import com.example.springbootbackend.service.EmployeeService;
+import com.example.springbootbackend.service.IEmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ import java.util.*;
 
 @Service
 @Slf4j
-public class EmployeeServiceImpl implements EmployeeService {
+public class IEmployeeServiceImpl implements IEmployeeService {
 
   private final static String EMPLOYEE_NOT_FOUND_BY_ID = "Employee not found in the database";
   private final static String EMPLOYEE_ALREADY_EXISTS = "Employee already exists in the database ";
@@ -30,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
   private final EmailSenderService emailSenderService;
 
   @Autowired
-  public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmailSenderService senderService) {
+  public IEmployeeServiceImpl(EmployeeRepository employeeRepository, EmailSenderService senderService) {
     this.employeeRepository = employeeRepository;
     this.emailSenderService = senderService;
   }

@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
 
-public interface EmployeeService {
+public interface IEmployeeService {
 
   ResponseEntity<Employee> firstNameSearching(String firstName);
 

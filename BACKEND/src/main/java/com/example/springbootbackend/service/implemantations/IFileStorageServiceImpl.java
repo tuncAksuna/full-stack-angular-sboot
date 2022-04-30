@@ -3,7 +3,7 @@ package com.example.springbootbackend.service.implemantations;
 import com.example.springbootbackend.config.exception.FileStorageException;
 import com.example.springbootbackend.model.FileDB;
 import com.example.springbootbackend.repository.FileRepository;
-import com.example.springbootbackend.service.FileStorageService;
+import com.example.springbootbackend.service.IFileStorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,11 +23,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 @Service
 @Slf4j
-public class FileStorageServiceImpl implements FileStorageService {
+public class IFileStorageServiceImpl implements IFileStorageService {
 
   // TODO : KULLANICI BİR TEXT AREA'YA TEXT YAZSIN VE DOSYAYI BUTONA TIKLAYINCA .TXT OLARAK BİLGİSAYARINA İNDİREBİLSİN.
   private final static String FILE_NOT_FOUND_EXCEPTION = "File not found ";
@@ -36,7 +37,7 @@ public class FileStorageServiceImpl implements FileStorageService {
   private final FileRepository fileRepository;
 
   @Autowired
-  public FileStorageServiceImpl(FileRepository fileRepository) {
+  public IFileStorageServiceImpl(FileRepository fileRepository) {
     this.fileRepository = fileRepository;
   }
 
@@ -96,13 +97,13 @@ public class FileStorageServiceImpl implements FileStorageService {
 
   @Override
   public FileDB storeFile(MultipartFile file) throws FileStorageException {
-    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     LocalDateTime now = LocalDateTime.now();
 
     try {
-      if (!(fileName.contains(".xlsx") || fileName.contains(".xls") || fileName.contains(".txt")) || fileName.isEmpty()) {
+      if (!(fileName.contains(".xlsx") || fileName.contains(".xls") || fileName.contains(".txt"))) {
         throw new FileStorageException("Sorry ! File name contains invalid path sequence or your file is null: " + fileName);
       }
       FileDB fileDB = new FileDB(fileName, file.getContentType(), file.getBytes(), dtf.format(now));
