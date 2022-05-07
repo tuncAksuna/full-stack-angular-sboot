@@ -35,6 +35,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
     this.emailSenderService = senderService;
   }
 
+  @Override
   public ResponseEntity<Employee> firstNameSearching(String firstName) {
     Employee employeeByFirstName = employeeRepository.findByFirstNameContaining(firstName).orElseThrow(() ->
       new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
@@ -70,6 +71,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
     }
   }
 
+  @Override
   public ResponseEntity<Employee> getEmployeeByFirstName(String firstName) {
     Employee employeeByFirstName = employeeRepository.findByFirstName(firstName).orElseThrow(() ->
       new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
@@ -86,6 +88,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
     return ResponseEntity.ok(employee);
   }
 
+  @Override
   public Employee createEmployee(Employee employee) {
     Optional<Employee> employeeOptional = employeeRepository.findById(employee.getId());
 
@@ -97,11 +100,12 @@ public class IEmployeeServiceImpl implements IEmployeeService {
       throw new EmployeeAlreadyExistException(EMPLOYEE_ALREADY_EXISTS);
     }
     Employee saveEmployee = new Employee(employee.getFirstName(), employee.getLastName(), employee.getEmailID(), dtf.format(now), employee.isUpdated());
-    log.trace("Executing createEmployee [{}]", employee);
+    log.trace("[{}] [{}] created ", employee.getFirstName(), employee.getLastName());
     return employeeRepository.save(saveEmployee);
 
   }
 
+  @Override
   public ResponseEntity<Employee> updateEmployee(Long id, Employee employeeDetails) {
 
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
@@ -117,15 +121,16 @@ public class IEmployeeServiceImpl implements IEmployeeService {
     emailSenderService.sendEmail(
       "aksuna.tunc@gmail.com",
       "UPDATE OPERATION - EMPLOYEE MANAGEMENT SYSTEM",
-      employee.getFirstName() + " " +  "has been successfully updated  !",
+      employee.getFirstName() + " " + "has been successfully updated  !",
       new Date()
     );
 
-    log.trace("Executing updateEmployee, employeeId : [{}], employee : [{}] and sent mail successfully" , id, employeeDetails);
+    log.trace("Executing updateEmployee, employeeId : [{}], employee : [{}] and sent mail successfully", id, employeeDetails);
     return ResponseEntity.status(HttpStatus.OK).body(updatedEmployee);
 
   }
 
+  @Override
   public ResponseEntity<Object> deleteEmployee(Long id) {
 
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->

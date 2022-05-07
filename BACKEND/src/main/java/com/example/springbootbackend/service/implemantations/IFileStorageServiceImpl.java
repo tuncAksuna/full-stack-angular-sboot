@@ -41,12 +41,14 @@ public class IFileStorageServiceImpl implements IFileStorageService {
     this.fileRepository = fileRepository;
   }
 
+  @Override
   public FileDB downloadFileById(String fileId) throws FileNotFoundException {
     log.trace("Executing downloadFileById , fileId [{}]", fileId);
     return fileRepository.findById(fileId).orElseThrow(() ->
       new FileNotFoundException(FILE_NOT_FOUND_EXCEPTION + fileId));
   }
 
+  @Override
   public ResponseEntity<Map<String, Object>> getAllFiles(int page, int size) {
     log.trace("Executing getAllFiles");
 
@@ -72,6 +74,7 @@ public class IFileStorageServiceImpl implements IFileStorageService {
     }
   }
 
+  @Override
   public Stream<FileDB> getAllFilesOrderBySizeASC() {
     log.trace("Executing getAllFilesOrderBySizeASC");
     return fileRepository.findAll(Sort.by("data").ascending()).stream();
