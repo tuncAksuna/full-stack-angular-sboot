@@ -14,6 +14,9 @@ public class RequestInterceptor implements HandlerInterceptor {
 
   private static final Logger logger = LoggerFactory.getLogger(RequestInterceptor.class);
 
+  /**
+    This is executed before the actual method call.
+   */
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     long startTime = Instant.now().toEpochMilli();
@@ -23,6 +26,9 @@ public class RequestInterceptor implements HandlerInterceptor {
     return true;
   }
 
+  /**
+   * Method executed after the method call and our service is ready to send the response.
+   */
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
     long startTime = (Long) request.getAttribute("startTime");
