@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 public class CustomExceptionHandler {
 
   @ExceptionHandler(value = {EmployeeNotFoundException.class})
-  public ResponseEntity<Object> handleNotFoundException(EmployeeNotFoundException exc) {
+  public ResponseEntity<ErrorResponse> handleNotFoundException(EmployeeNotFoundException exc) {
     //PAYLOAD
     HttpStatus status = HttpStatus.NOT_FOUND;
 
@@ -22,11 +22,11 @@ public class CustomExceptionHandler {
       HttpStatus.NOT_FOUND.value(),
       ZonedDateTime.now(ZoneId.of("Z")));
 
-    return new ResponseEntity<Object>(errorResponse, status);
+    return new ResponseEntity<>(errorResponse, status);
   }
 
   @ExceptionHandler(value = {EmployeeAlreadyExistException.class})
-  public ResponseEntity<Object> handleAlreadyExistException(EmployeeAlreadyExistException exc) {
+  public ResponseEntity<ErrorResponse> handleAlreadyExistException(EmployeeAlreadyExistException exc) {
     HttpStatus status = HttpStatus.CONFLICT;
 
     ErrorResponse errorResponse = new ErrorResponse(
@@ -34,11 +34,11 @@ public class CustomExceptionHandler {
       HttpStatus.CONFLICT.value(),
       ZonedDateTime.now(ZoneId.of("Z")));
 
-    return new ResponseEntity<Object>(errorResponse, status);
+    return new ResponseEntity<>(errorResponse, status);
   }
 
   @ExceptionHandler(value = {FileStorageException.class})
-  public ResponseEntity<Object> handleFileStorageException(FileStorageException exc) {
+  public ResponseEntity<ErrorResponse> handleFileStorageException(FileStorageException exc) {
     HttpStatus status = HttpStatus.METHOD_NOT_ALLOWED;
 
     ErrorResponse errorResponse = new ErrorResponse(
@@ -46,7 +46,7 @@ public class CustomExceptionHandler {
       HttpStatus.METHOD_NOT_ALLOWED.value(),
       ZonedDateTime.now(ZoneId.of("Z")));
 
-    return new ResponseEntity<Object>(errorResponse, status);
+    return new ResponseEntity<>(errorResponse, status);
   }
 
 }
