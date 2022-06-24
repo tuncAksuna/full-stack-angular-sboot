@@ -22,9 +22,9 @@ import java.util.*;
 @Slf4j
 public class IEmployeeServiceImpl implements IEmployeeService {
 
-  private final static String EMPLOYEE_NOT_FOUND_BY_ID = "Employee not found in the database";
+  private final static String EMPLOYEE_NOT_FOUND_BY_ID = "Employee not found in the database with ID: ";
   private final static String EMPLOYEE_ALREADY_EXISTS = "Employee already exists in the database ";
-  private final static String EMPLOYEE_NOT_FOUND_BY_FIRST_NAME = "First name not found in the database";
+  private final static String EMPLOYEE_NOT_FOUND_BY_FIRST_NAME = "First name not found in the database ";
 
   private final EmployeeRepository employeeRepository;
   private final EmailSenderService emailSenderService;
@@ -74,7 +74,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
   @Override
   public ResponseEntity<Employee> getEmployeeByFirstName(String firstName) {
     Employee employeeByFirstName = employeeRepository.findByFirstName(firstName).orElseThrow(() ->
-      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME + firstName));
 
     log.trace("Executing getEmployeeByFirstName [{}]", firstName);
     return ResponseEntity.ok(employeeByFirstName);
@@ -82,7 +82,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
 
   public ResponseEntity<Employee> getEmployeeById(Long id) {
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID + id));
 
     log.trace("Executing getEmployeeById [{}]", id);
     return ResponseEntity.ok(employee);
@@ -97,7 +97,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
 
     if (employeeOptional.isPresent()) {
       log.warn("[{}] [{}] already created , created time [{}], not executed createEmployee ", employee.getFirstName(), employee.getLastName(), employee.getCreatedTime());
-      throw new SourceAlreadyExistsException(EMPLOYEE_ALREADY_EXISTS);
+      throw new SourceAlreadyExistsException(EMPLOYEE_ALREADY_EXISTS + " " + employee.getId() + " " + employee.getFirstName());
     }
     Employee saveEmployee = new Employee(employee.getFirstName(), employee.getLastName(), employee.getEmailID(), dtf.format(now), employee.isUpdated());
     log.trace("[{}] [{}] created ", employee.getFirstName(), employee.getLastName());
@@ -109,7 +109,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
   public ResponseEntity<Employee> updateEmployee(Long id, Employee employeeDetails) {
 
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID + id));
 
     employee.setFirstName(employeeDetails.getFirstName());
     employee.setLastName(employeeDetails.getLastName());
@@ -134,7 +134,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
   public ResponseEntity<Object> deleteEmployee(Long id) {
 
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID + id));
 
     employeeRepository.delete(employee);
 
