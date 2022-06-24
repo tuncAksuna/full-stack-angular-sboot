@@ -17,10 +17,7 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 
         Employee employeeRepositoryByEmailID = employeeRepository.findByEmailID(val);
 
-        if (employeeRepositoryByEmailID == null) {
-            return true;
-        }
-        return false;
+      return employeeRepositoryByEmailID == null;
 
     }
 }
