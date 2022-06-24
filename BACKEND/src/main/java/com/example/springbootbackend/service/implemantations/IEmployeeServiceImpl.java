@@ -1,7 +1,7 @@
 package com.example.springbootbackend.service.implemantations;
 
-import com.example.springbootbackend.config.exception.EmployeeAlreadyExistException;
-import com.example.springbootbackend.config.exception.EmployeeNotFoundException;
+import com.example.springbootbackend.config.exception.SourceAlreadyExistsException;
+import com.example.springbootbackend.config.exception.SourceNotFoundException;
 import com.example.springbootbackend.model.Employee;
 import com.example.springbootbackend.repository.EmployeeRepository;
 import com.example.springbootbackend.service.IEmployeeService;
@@ -38,7 +38,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
   @Override
   public ResponseEntity<Employee> firstNameSearching(String firstName) {
     Employee employeeByFirstName = employeeRepository.findByFirstNameContaining(firstName).orElseThrow(() ->
-      new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
 
     log.trace("Executing firstNameSearching [{}]", firstName);
     return ResponseEntity.ok(employeeByFirstName);
@@ -74,7 +74,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
   @Override
   public ResponseEntity<Employee> getEmployeeByFirstName(String firstName) {
     Employee employeeByFirstName = employeeRepository.findByFirstName(firstName).orElseThrow(() ->
-      new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
 
     log.trace("Executing getEmployeeByFirstName [{}]", firstName);
     return ResponseEntity.ok(employeeByFirstName);
@@ -82,7 +82,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
 
   public ResponseEntity<Employee> getEmployeeById(Long id) {
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-      new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
     log.trace("Executing getEmployeeById [{}]", id);
     return ResponseEntity.ok(employee);
@@ -97,7 +97,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
 
     if (employeeOptional.isPresent()) {
       log.warn("[{}] [{}] already created , created time [{}], not executed createEmployee ", employee.getFirstName(), employee.getLastName(), employee.getCreatedTime());
-      throw new EmployeeAlreadyExistException(EMPLOYEE_ALREADY_EXISTS);
+      throw new SourceAlreadyExistsException(EMPLOYEE_ALREADY_EXISTS);
     }
     Employee saveEmployee = new Employee(employee.getFirstName(), employee.getLastName(), employee.getEmailID(), dtf.format(now), employee.isUpdated());
     log.trace("[{}] [{}] created ", employee.getFirstName(), employee.getLastName());
@@ -109,7 +109,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
   public ResponseEntity<Employee> updateEmployee(Long id, Employee employeeDetails) {
 
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-      new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
     employee.setFirstName(employeeDetails.getFirstName());
     employee.setLastName(employeeDetails.getLastName());
@@ -134,7 +134,7 @@ public class IEmployeeServiceImpl implements IEmployeeService {
   public ResponseEntity<Object> deleteEmployee(Long id) {
 
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-      new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
     employeeRepository.delete(employee);
 

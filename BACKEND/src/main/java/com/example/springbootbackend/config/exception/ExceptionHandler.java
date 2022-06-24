@@ -3,17 +3,16 @@ package com.example.springbootbackend.config.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 
 @ControllerAdvice
-public class CustomExceptionHandler {
+public class ExceptionHandler {
 
-  @ExceptionHandler(value = {EmployeeNotFoundException.class})
-  public ResponseEntity<ErrorResponse> handleNotFoundException(EmployeeNotFoundException exc) {
+  @org.springframework.web.bind.annotation.ExceptionHandler(value = {SourceNotFoundException.class})
+  public ResponseEntity<ErrorResponse> handleNotFoundException(SourceNotFoundException exc) {
     //PAYLOAD
     HttpStatus status = HttpStatus.NOT_FOUND;
 
@@ -25,8 +24,8 @@ public class CustomExceptionHandler {
     return new ResponseEntity<>(errorResponse, status);
   }
 
-  @ExceptionHandler(value = {EmployeeAlreadyExistException.class})
-  public ResponseEntity<ErrorResponse> handleAlreadyExistException(EmployeeAlreadyExistException exc) {
+  @org.springframework.web.bind.annotation.ExceptionHandler(value = {SourceAlreadyExistsException.class})
+  public ResponseEntity<ErrorResponse> handleAlreadyExistException(SourceAlreadyExistsException exc) {
     HttpStatus status = HttpStatus.CONFLICT;
 
     ErrorResponse errorResponse = new ErrorResponse(
@@ -37,7 +36,7 @@ public class CustomExceptionHandler {
     return new ResponseEntity<>(errorResponse, status);
   }
 
-  @ExceptionHandler(value = {FileStorageException.class})
+  @org.springframework.web.bind.annotation.ExceptionHandler(value = {FileStorageException.class})
   public ResponseEntity<ErrorResponse> handleFileStorageException(FileStorageException exc) {
     HttpStatus status = HttpStatus.METHOD_NOT_ALLOWED;
 
