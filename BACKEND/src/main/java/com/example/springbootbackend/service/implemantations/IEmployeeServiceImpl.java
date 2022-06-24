@@ -1,9 +1,10 @@
-package com.example.springbootbackend.service;
+package com.example.springbootbackend.service.implemantations;
 
-import com.example.springbootbackend.config.exception.EmployeeAlreadyExistException;
-import com.example.springbootbackend.config.exception.EmployeeNotFoundException;
+import com.example.springbootbackend.config.exception.SourceAlreadyExistsException;
+import com.example.springbootbackend.config.exception.SourceNotFoundException;
 import com.example.springbootbackend.model.Employee;
 import com.example.springbootbackend.repository.EmployeeRepository;
+import com.example.springbootbackend.service.IEmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,7 @@ import java.util.*;
 
 @Service
 @Slf4j
-public class EmployeeServiceImpl implements EmployeeService {
+public class IEmployeeServiceImpl implements IEmployeeService {
 
   private final static String EMPLOYEE_NOT_FOUND_BY_ID = "Employee not found in the database";
   private final static String EMPLOYEE_ALREADY_EXISTS = "Employee already exists in the database ";
@@ -29,14 +30,15 @@ public class EmployeeServiceImpl implements EmployeeService {
   private final EmailSenderService emailSenderService;
 
   @Autowired
-  public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmailSenderService senderService) {
+  public IEmployeeServiceImpl(EmployeeRepository employeeRepository, EmailSenderService senderService) {
     this.employeeRepository = employeeRepository;
     this.emailSenderService = senderService;
   }
 
+  @Override
   public ResponseEntity<Employee> firstNameSearching(String firstName) {
     Employee employeeByFirstName = employeeRepository.findByFirstNameContaining(firstName).orElseThrow(() ->
-      new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
 
     log.trace("Executing firstNameSearching [{}]", firstName);
     return ResponseEntity.ok(employeeByFirstName);
@@ -64,14 +66,15 @@ public class EmployeeServiceImpl implements EmployeeService {
       return new ResponseEntity<>(response, HttpStatus.OK);
 
     } catch (Exception ex) {
-      log.warn("Not executed getAllEmployees {}", page, ex);
+      log.warn("Not executed getAllEmployees [{}]", page, ex);
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
+  @Override
   public ResponseEntity<Employee> getEmployeeByFirstName(String firstName) {
     Employee employeeByFirstName = employeeRepository.findByFirstName(firstName).orElseThrow(() ->
-      new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_FIRST_NAME));
 
     log.trace("Executing getEmployeeByFirstName [{}]", firstName);
     return ResponseEntity.ok(employeeByFirstName);
@@ -79,12 +82,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   public ResponseEntity<Employee> getEmployeeById(Long id) {
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-      new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
     log.trace("Executing getEmployeeById [{}]", id);
     return ResponseEntity.ok(employee);
   }
 
+  @Override
   public Employee createEmployee(Employee employee) {
     Optional<Employee> employeeOptional = employeeRepository.findById(employee.getId());
 
@@ -92,19 +96,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     LocalDateTime now = LocalDateTime.now();
 
     if (employeeOptional.isPresent()) {
-      log.warn("[{}] [{}} already created , created time [{}], not executed createEmployee ", employee.getFirstName(), employee.getLastName(), employee.getCreatedTime());
-      throw new EmployeeAlreadyExistException(EMPLOYEE_ALREADY_EXISTS);
+      log.warn("[{}] [{}] already created , created time [{}], not executed createEmployee ", employee.getFirstName(), employee.getLastName(), employee.getCreatedTime());
+      throw new SourceAlreadyExistsException(EMPLOYEE_ALREADY_EXISTS);
     }
     Employee saveEmployee = new Employee(employee.getFirstName(), employee.getLastName(), employee.getEmailID(), dtf.format(now), employee.isUpdated());
-    log.trace("Executing createEmployee [{}]", employee);
+    log.trace("[{}] [{}] created ", employee.getFirstName(), employee.getLastName());
     return employeeRepository.save(saveEmployee);
 
   }
 
+  @Override
   public ResponseEntity<Employee> updateEmployee(Long id, Employee employeeDetails) {
 
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-      new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
     employee.setFirstName(employeeDetails.getFirstName());
     employee.setLastName(employeeDetails.getLastName());
@@ -114,28 +119,29 @@ public class EmployeeServiceImpl implements EmployeeService {
     Employee updatedEmployee = employeeRepository.save(employee);
 
     emailSenderService.sendEmail(
-      employee.getEmailID(),
+      "aksuna.tunc@gmail.com",
       "UPDATE OPERATION - EMPLOYEE MANAGEMENT SYSTEM",
-      "Your information has been updated by your administrator !",
+      employee.getFirstName() + " " + "has been successfully updated  !",
       new Date()
     );
 
-    log.trace("Executing updateEmployee, employeeId : [{}], employee : [{}]", id, employeeDetails);
+    log.trace("Executing updateEmployee, employeeId : [{}], employee : [{}] and sent mail successfully", id, employeeDetails);
     return ResponseEntity.status(HttpStatus.OK).body(updatedEmployee);
 
   }
 
+  @Override
   public ResponseEntity<Object> deleteEmployee(Long id) {
 
     Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-      new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
+      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID));
 
     employeeRepository.delete(employee);
 
     emailSenderService.sendEmail(
       "aksuna.tunc@gmail.com",
       "DELETE Operation - EMPLOYEE MANAGEMENT SYSTEM",
-      employee.getFirstName() + " " + employee.getLastName() + " has been deleted successfully from the system." + " ID : " + employee.getId(),
+      employee.getFirstName() + " " + employee.getLastName() + " has been successfully deleted from the system." + " ID : " + employee.getId(),
       new Date()
     );
 

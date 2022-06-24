@@ -1,6 +1,7 @@
 When the user clicks to DELETE button , show pop up ( are you sure ? etc. )
-ADD POP-UP WHEN USER UPDATED. (POP-UP : USER UPDATED SUCCESSFULLY AND GO TO EMPLOYEES LIST PAGE)
 Store deleted employees in a file and add some informations about deleted employee( date the user was deleted , why deleted ? , requested himself , why did he/she request)
 When will the user deleted ?
 associate files with users
+There is huge bug in delete employee operation. we get this error : ERROR TypeError: You provided 'undefined' where a stream was expected  when a user is deleted from the list  
+SEND E-MAIL ABOUT SELECTED EMPLOYEE (DETAILS PAGE --> SEND MESSAGE US)
 

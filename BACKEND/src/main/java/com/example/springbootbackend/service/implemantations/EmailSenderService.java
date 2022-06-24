@@ -1,5 +1,6 @@
-package com.example.springbootbackend.service;
+package com.example.springbootbackend.service.implemantations;
 
+import com.example.springbootbackend.service.IEmailSenderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -10,10 +11,11 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
+import java.util.Objects;
 
 @Service
 @Slf4j
-public class EmailSenderService {
+public class EmailSenderService implements IEmailSenderService {
 
   @Autowired
   private JavaMailSender mailSender;
@@ -31,8 +33,8 @@ public class EmailSenderService {
       mimeHelper.setSubject(subjectOfMail);
       mimeHelper.setSentDate(sentTime);
 
-      FileSystemResource file = new FileSystemResource("C:\\Users\\netadmin\\Desktop\\SPRING and JAVA\\PROJELER\\full-stack-app\\BACKEND\\src\\main\\java\\assets\\employee-deleted.png");
-      mimeHelper.addAttachment(file.getFilename(), file);
+      FileSystemResource file = new FileSystemResource("C:\\Users\\netadmin\\Desktop\\Software Notes\\SPRING and JAVA\\PROJELER\\full-stack-app\\BACKEND\\src\\main\\java\\assets\\employee-deleted.png");
+      mimeHelper.addAttachment(Objects.requireNonNull(file.getFilename()), file);
       log.trace("The mail succesfully sent to [{}]", toEmail);
       mailSender.send(mimeMessage);
 
@@ -41,4 +43,5 @@ public class EmailSenderService {
       System.out.println(ex.getMessage());
     }
   }
+
 }

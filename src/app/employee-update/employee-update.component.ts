@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../models/employee';
+import { OpenDialogComponent } from '../open-dialog/open-dialog.component';
 import { EmployeeService } from '../services/employee.service';
 
 @Component({
@@ -11,7 +13,7 @@ import { EmployeeService } from '../services/employee.service';
 })
 export class EmployeeUpdateComponent implements OnInit {
 
-  constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router, public dialog: MatDialog) { }
 
   employee: Employee = new Employee();
 
@@ -50,8 +52,13 @@ export class EmployeeUpdateComponent implements OnInit {
     ),
   })
 
+  openDialog() {
+    this.dialog.open(OpenDialogComponent);
+  }
+
   updatedEmployee() {
     this.employeeService.updateEmployee(this.id, this.employee).subscribe(data => {
+      this.openDialog();
       console.log(`${this.employee.firstName} is successfully updated..`)
       this.goToEmployeeList();
     }),

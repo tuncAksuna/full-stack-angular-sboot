@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
 
-public interface EmployeeService {
+public interface IEmployeeService {
 
   ResponseEntity<Employee> firstNameSearching(String firstName);
 
@@ -20,6 +20,7 @@ public interface EmployeeService {
   ResponseEntity<Employee> updateEmployee(Long id, Employee employeeDetails);
 
   ResponseEntity<Object> deleteEmployee(Long id);
+
 
 
 }

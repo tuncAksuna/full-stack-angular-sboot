@@ -110,7 +110,7 @@ export class FileTransactionsComponent implements OnInit {
       this.count = totalItems;
     },
       error => {
-        console.warn("Pagination error in file-operations page : ", error)
+        console.warn("Pagination error on file-operations page : ", error)
       })
   }
 

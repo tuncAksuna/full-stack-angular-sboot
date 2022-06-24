@@ -2,7 +2,7 @@ package com.example.springbootbackend.controller;
 
 import com.example.springbootbackend.config.filemessage.UploadFileResponse;
 import com.example.springbootbackend.model.FileDB;
-import com.example.springbootbackend.service.FileStorageService;
+import com.example.springbootbackend.service.IFileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -24,17 +24,17 @@ import java.util.stream.Stream;
 @CrossOrigin(value = "*")
 public class FileStorageController {
 
-  private final FileStorageService fileStorageService;
+  private final IFileStorageService IFileStorageService;
 
   @Autowired
-  public FileStorageController(FileStorageService fileStorageService) {
-    this.fileStorageService = fileStorageService;
+  public FileStorageController(IFileStorageService IFileStorageService) {
+    this.IFileStorageService = IFileStorageService;
   }
 
   @GetMapping("/files/download/{fileId}")
   public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileId) throws FileNotFoundException {
 
-    FileDB fileDB = fileStorageService.downloadFileById(fileId);
+    FileDB fileDB = IFileStorageService.downloadFileById(fileId);
 
     return ResponseEntity.ok()
       .contentType(MediaType.parseMediaType(fileDB.getType()))
@@ -44,7 +44,7 @@ public class FileStorageController {
 
   @PostMapping("/files/upload")
   public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-    FileDB fileDB = fileStorageService.storeFile(file);
+    FileDB fileDB = IFileStorageService.storeFile(file);
 
     String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
       .path("/downloadFile/")
@@ -56,35 +56,34 @@ public class FileStorageController {
 
   @PostMapping("/files/uploadMultiple")
   public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-    return Arrays.asList(files)
-      .stream()
-      .map(file -> uploadFile(file))
+    return Arrays.stream(files)
+      .map(this::uploadFile)
       .collect(Collectors.toList());
   }
 
   @GetMapping("/files/downloadAllFiles")
   public ResponseEntity<Map<String, Object>> getAllFiles(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
-    return fileStorageService.getAllFiles(page, size);
+    return IFileStorageService.getAllFiles(page, size);
   }
 
   @GetMapping("files/downloadOrderByDataASC")
   public Stream<FileDB> getAllFilesOrderBySizeASC() {
-    return fileStorageService.getAllFilesOrderBySizeASC();
+    return IFileStorageService.getAllFilesOrderBySizeASC();
   }
 
   @GetMapping("files/downloadOrderByDataDESC")
   public Stream<FileDB> getAllFilesOrderBySizeDESC() {
-    return fileStorageService.getAllFilesOrderBySizeDESC();
+    return IFileStorageService.getAllFilesOrderBySizeDESC();
   }
 
   @GetMapping("files/downloadOrderByUploadedTimeASC")
   public Stream<FileDB> getAllFilesOrderByUploadedTimeASC() {
-    return fileStorageService.getAllFilesOrderByUploadedTimeASC();
+    return IFileStorageService.getAllFilesOrderByUploadedTimeASC();
   }
 
   @GetMapping("files/downloadOrderByUploadedTimeDESC")
   public Stream<FileDB> getAllFilesOrderByUploadedTimeDESC() {
-    return fileStorageService.getAllFilesOrderByUploadedTimeDESC();
+    return IFileStorageService.getAllFilesOrderByUploadedTimeDESC();
   }
 
 }
