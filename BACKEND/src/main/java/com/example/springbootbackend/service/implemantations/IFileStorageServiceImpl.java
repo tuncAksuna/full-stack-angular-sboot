@@ -35,6 +35,8 @@ public class IFileStorageServiceImpl implements IFileStorageService {
   private final static String FILE_STORAGE_COULDNT_STORE_EXCEPTION = "File could not storage ";
 
   private final FileRepository fileRepository;
+  private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
 
   @Autowired
   public IFileStorageServiceImpl(FileRepository fileRepository) {
@@ -102,7 +104,6 @@ public class IFileStorageServiceImpl implements IFileStorageService {
   public FileDB storeFile(MultipartFile file) throws FileStorageException {
     String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     LocalDateTime now = LocalDateTime.now();
 
     try {
