@@ -1,6 +1,7 @@
 package com.example.springbootbackend.service;
 
 import com.example.springbootbackend.model.Employee;
+import com.example.springbootbackend.model.dto.EmployeeDTO;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
@@ -15,9 +16,9 @@ public interface IEmployeeService {
 
   ResponseEntity<Employee> getEmployeeById(Long id);
 
-  Employee createEmployee(Employee employee);
+  EmployeeDTO createEmployee(EmployeeDTO employeeDTO);
 
-  ResponseEntity<Employee> updateEmployee(Long id, Employee employeeDetails);
+  EmployeeDTO updateEmployee(Long id, EmployeeDTO employeeDetails);
 
   ResponseEntity<Object> deleteEmployee(Long id);
 

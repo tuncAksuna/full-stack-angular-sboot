@@ -3,9 +3,11 @@ package com.example.springbootbackend.service.implemantations;
 import com.example.springbootbackend.config.exception.SourceAlreadyExistsException;
 import com.example.springbootbackend.config.exception.SourceNotFoundException;
 import com.example.springbootbackend.model.Employee;
+import com.example.springbootbackend.model.dto.EmployeeDTO;
 import com.example.springbootbackend.repository.EmployeeRepository;
 import com.example.springbootbackend.service.IEmployeeService;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,11 +30,15 @@ public class IEmployeeServiceImpl implements IEmployeeService {
 
   private final EmployeeRepository employeeRepository;
   private final EmailSenderService emailSenderService;
+  private final ModelMapper modelMapper;
+  private DateTimeFormatter dtf;
+
 
   @Autowired
-  public IEmployeeServiceImpl(EmployeeRepository employeeRepository, EmailSenderService senderService) {
+  public IEmployeeServiceImpl(EmployeeRepository employeeRepository, EmailSenderService senderService, ModelMapper modelMapper) {
     this.employeeRepository = employeeRepository;
     this.emailSenderService = senderService;
+    this.modelMapper = modelMapper;
   }
 
   @Override
@@ -89,31 +95,45 @@ public class IEmployeeServiceImpl implements IEmployeeService {
   }
 
   @Override
-  public Employee createEmployee(Employee employee) {
-    Optional<Employee> employeeOptional = employeeRepository.findById(employee.getId());
+  public EmployeeDTO createEmployee(EmployeeDTO employeeDTO) {
+    Optional<Employee> employeeOptional = employeeRepository.findById(employeeDTO.getId());
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    Employee employee = modelMapper.map(employeeDTO, Employee.class);
+
     LocalDateTime now = LocalDateTime.now();
 
     if (employeeOptional.isPresent()) {
       log.warn("[{}] [{}] already created , created time [{}], not executed createEmployee ", employee.getFirstName(), employee.getLastName(), employee.getCreatedTime());
       throw new SourceAlreadyExistsException(EMPLOYEE_ALREADY_EXISTS + " " + employee.getId() + " " + employee.getFirstName());
     }
-    Employee saveEmployee = new Employee(employee.getFirstName(), employee.getLastName(), employee.getEmailID(), dtf.format(now), employee.isUpdated());
-    log.trace("[{}] [{}] created ", employee.getFirstName(), employee.getLastName());
-    return employeeRepository.save(saveEmployee);
+    employee.setFirstName(employeeDTO.getFirstName());
+    employee.setLastName(employeeDTO.getLastName());
+    employee.setEmailID(employeeDTO.getEmailID());
+    employee.setCreatedTime(dtf.format(now));
+    employee.isUpdated();
+
+    log.trace("[{}] [{}] created ", employeeDTO.getFirstName(), employeeDTO.getLastName());
+
+    return modelMapper.map(employeeRepository.save(employee), EmployeeDTO.class);
+
 
   }
 
   @Override
-  public ResponseEntity<Employee> updateEmployee(Long id, Employee employeeDetails) {
+  public EmployeeDTO updateEmployee(Long id, EmployeeDTO employeeDTO) {
+    Optional<Employee> employeeOptional = employeeRepository.findById(employeeDTO.getId());
 
-    Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-      new SourceNotFoundException(EMPLOYEE_NOT_FOUND_BY_ID + id));
+    // entity -> dto via mapper api
+    Employee employee = modelMapper.map(employeeDTO, Employee.class);
 
-    employee.setFirstName(employeeDetails.getFirstName());
-    employee.setLastName(employeeDetails.getLastName());
-    employee.setEmailID(employeeDetails.getEmailID());
+    if (employeeOptional.isPresent()) {
+      log.warn("[{}] [{}] already created , created time [{}], not executed createEmployee ", employee.getFirstName(), employee.getLastName(), employee.getCreatedTime());
+      throw new SourceAlreadyExistsException(EMPLOYEE_ALREADY_EXISTS + " " + employee.getId() + " " + employee.getFirstName());
+    }
+
+    employee.setFirstName(employeeDTO.getFirstName());
+    employee.setLastName(employeeDTO.getLastName());
+    employee.setEmailID(employeeDTO.getEmailID());
     employee.setUpdated(true);
 
     Employee updatedEmployee = employeeRepository.save(employee);
@@ -125,8 +145,9 @@ public class IEmployeeServiceImpl implements IEmployeeService {
       new Date()
     );
 
-    log.trace("Executing updateEmployee, employeeId : [{}], employee : [{}] and sent mail successfully", id, employeeDetails);
-    return ResponseEntity.status(HttpStatus.OK).body(updatedEmployee);
+    log.trace("Executing updateEmployee, employeeId : [{}], employee : [{}] and sent mail successfully", id, employeeDTO);
+
+    return modelMapper.map(employeeRepository.save(employee), EmployeeDTO.class);
 
   }
 

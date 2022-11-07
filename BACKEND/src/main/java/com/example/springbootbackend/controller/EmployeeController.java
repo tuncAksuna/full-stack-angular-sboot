@@ -1,6 +1,7 @@
 package com.example.springbootbackend.controller;
 
 import com.example.springbootbackend.model.Employee;
+import com.example.springbootbackend.model.dto.EmployeeDTO;
 import com.example.springbootbackend.service.IEmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +48,14 @@ public class EmployeeController {
   }
 
   @PostMapping("/employees")
-  public Employee createEmployee(@Valid @RequestBody Employee employee) {
+  public EmployeeDTO createEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
 
-    return IEmployeeService.createEmployee(employee);
+    return IEmployeeService.createEmployee(employeeDTO);
   }
 
   @PutMapping("/employees/{id}")
-  public ResponseEntity<Employee> updateEmployee(@PathVariable @Max(2) Long id, @RequestBody Employee employee) {
-    return IEmployeeService.updateEmployee(id, employee);
+  public EmployeeDTO updateEmployee(@PathVariable @Max(2) Long id, @RequestBody EmployeeDTO employeeDTO) {
+    return IEmployeeService.updateEmployee(id, employeeDTO);
   }
 
   @DeleteMapping("/employees/{id}")
